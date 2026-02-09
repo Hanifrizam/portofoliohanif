@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hanif Riza | Portfolio Detail</title>
+    <title>Hanif Riza | Detailed Portfolio</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,19 +17,14 @@
             --bg-main: #050505;
             --bg-secondary: #0F0F0F;
             --card-bg: #141414;
-            
-            /* Gradient Accent */
             --primary: #7B61FF;
             --secondary: #00F0FF;
             --accent-gradient: linear-gradient(135deg, #7B61FF 0%, #00F0FF 100%);
-            
             --text-main: #FFFFFF;
             --text-muted: #9CA3AF;
-            
             --container-padding: 24px;
             --radius-lg: 20px;
             --radius-md: 12px;
-            
             --glass-bg: rgba(20, 20, 20, 0.7);
             --glass-border: 1px solid rgba(255, 255, 255, 0.08);
             --blur: blur(12px);
@@ -40,7 +35,6 @@
         
         html { 
             scroll-behavior: smooth; 
-            /* Penting: Agar saat klik menu, judul tidak tertutup header sticky */
             scroll-padding-top: 140px; 
         }
 
@@ -50,7 +44,6 @@
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
-            /* Extra padding bawah agar konten tidak tertutup menu HP */
             padding-bottom: 100px; 
         }
 
@@ -60,6 +53,14 @@
         }
 
         h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+
+        /* FIX: Standard Property for Background Clip */
+        .gradient-text, .mobile-nav-item.active i {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text; /* Ini memperbaiki warning VS Code */
+            -webkit-text-fill-color: transparent;
+        }
 
         /* --- 3. NAVIGATION --- */
         .navbar-desktop {
@@ -96,12 +97,11 @@
         }
         .mobile-nav-item i { font-size: 1.3rem; margin-bottom: 2px; }
         .mobile-nav-item.active { color: white; }
-        .mobile-nav-item.active i { color: var(--secondary); }
+        /* Active gradient is applied via helper class above */
 
         @media (max-width: 960px) {
             .navbar-desktop { display: none; }
             .mobile-nav { display: flex; }
-            /* Adjust scroll padding for mobile */
             html { scroll-padding-top: 100px; } 
         }
 
@@ -122,7 +122,6 @@
             background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px);
             padding: 12px 0; border-bottom: var(--glass-border); border-top: var(--glass-border);
             margin-bottom: 40px; 
-            /* Hide scrollbar */
             overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none;
         }
         .filter-bar::-webkit-scrollbar { display: none; }
@@ -146,7 +145,7 @@
             box-shadow: 0 0 15px rgba(123, 97, 255, 0.3);
         }
 
-        /* --- 5. PORTFOLIO CARDS (Grid System) --- */
+        /* --- 5. PORTFOLIO CARDS --- */
         .segment { padding: 20px 0; margin-bottom: 40px; }
         .segment-title { 
             font-size: 1.8rem; margin-bottom: 30px; display: flex; align-items: center; gap: 12px;
@@ -198,7 +197,7 @@
             margin-top: auto; border: 1px solid rgba(123, 97, 255, 0.2); width: fit-content;
         }
 
-        /* Video Grid */
+        /* --- 6. VIDEO CARDS (FIXED) --- */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
         .video-card { 
             background: black; border-radius: var(--radius-lg); overflow: hidden; 
@@ -222,7 +221,7 @@
             .grid-std { grid-template-columns: 1fr; }
         }
 
-        /* --- 6. WALL OF WISHES (UI Enhanced) --- */
+        /* --- 7. WALL OF WISHES --- */
         .wall-section {
             padding: 60px 0; border-top: var(--glass-border); background: rgba(255,255,255,0.01);
             margin-top: 40px;
@@ -231,18 +230,11 @@
             display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: start;
         }
 
-        /* Form styling */
         .wall-form-card {
             background: var(--bg-secondary); padding: 24px; border-radius: var(--radius-lg);
             border: var(--glass-border); position: sticky; top: 160px;
         }
-        .form-label { display: block; color: var(--text-muted); margin-bottom: 8px; font-size: 0.85rem; font-weight: 600; }
-        .form-input {
-            width: 100%; background: var(--bg-main); border: 1px solid rgba(255,255,255,0.1);
-            color: white; padding: 12px; border-radius: var(--radius-md); font-family: inherit;
-            margin-bottom: 16px; transition: 0.3s;
-        }
-        .form-input:focus { outline: none; border-color: var(--primary); }
+        /* FIX: Added proper cursor pointer for button */
         .btn-submit {
             width: 100%; background: var(--accent-gradient); border: none; padding: 12px;
             color: white; border-radius: var(--radius-md); font-weight: 700; cursor: pointer;
@@ -250,16 +242,22 @@
         }
         .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        /* Message List styling */
+        .form-label { display: block; color: var(--text-muted); margin-bottom: 8px; font-size: 0.85rem; font-weight: 600; }
+        .form-input {
+            width: 100%; background: var(--bg-main); border: 1px solid rgba(255,255,255,0.1);
+            color: white; padding: 12px; border-radius: var(--radius-md); font-family: inherit;
+            margin-bottom: 16px; transition: 0.3s;
+        }
+        .form-input:focus { outline: none; border-color: var(--primary); }
+
         .wall-messages {
             display: flex; flex-direction: column; gap: 16px;
             max-height: 600px; overflow-y: auto; padding-right: 5px;
         }
-        /* Mobile adjustment for Wall */
         @media (max-width: 900px) { 
             .wall-layout { grid-template-columns: 1fr; } 
             .wall-form-card { position: relative; top: 0; margin-bottom: 20px; }
-            .wall-messages { max-height: 400px; } /* Batasi tinggi di HP agar tidak scroll jauh */
+            .wall-messages { max-height: 400px; } 
         }
 
         .msg-card {
@@ -273,7 +271,7 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- 7. FOOTER & LIGHTBOX --- */
+        /* --- 8. FOOTER & LIGHTBOX --- */
         .lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95);
             z-index: 9999; display: none; align-items: center; justify-content: center; padding: 10px;
@@ -282,7 +280,7 @@
         .lightbox-img { max-width: 100%; max-height: 80vh; border-radius: 8px; }
         .lightbox-close { 
             position: absolute; top: 20px; right: 20px; color: white; 
-            font-size: 2.5rem; cursor: pointer; padding: 10px;
+            font-size: 2.5rem; cursor: pointer; padding: 10px; z-index: 10001;
         }
 
         footer { 
@@ -400,22 +398,22 @@
             <div class="video-grid">
                 <div class="video-card">
                     <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto Play</div>
-                    <video class="video-element" muted loop playsinline poster="https://via.placeholder.com/300x533/111/333?text=Video+Loading">
-                        <source src="https://videos.pexels.com/video-files/3205908/3205908-uhd_2160_4096_25fps.mp4" type="video/mp4">
+                    <video class="video-element" muted loop playsinline poster="https://placehold.co/600x1067/111/FFF?text=Video+Loading">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-working-on-a-new-project-3096-large.mp4" type="video/mp4">
                     </video>
                     <div class="video-overlay"><div class="video-title">Reels: Product Launch</div></div>
                 </div>
                 <div class="video-card">
                     <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto Play</div>
-                    <video class="video-element" muted loop playsinline>
-                        <source src="https://videos.pexels.com/video-files/4434242/4434242-hd_1080_1920_24fps.mp4" type="video/mp4">
+                    <video class="video-element" muted loop playsinline poster="https://placehold.co/600x1067/111/FFF?text=Video+Loading">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-white-augmented-reality-sphere-2766-large.mp4" type="video/mp4">
                     </video>
                     <div class="video-overlay"><div class="video-title">Story: Event Highlight</div></div>
                 </div>
                 <div class="video-card landscape">
                     <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto Play</div>
-                    <video class="video-element" muted loop playsinline>
-                        <source src="https://videos.pexels.com/video-files/3195394/3195394-uhd_3840_2160_25fps.mp4" type="video/mp4">
+                    <video class="video-element" muted loop playsinline poster="https://placehold.co/800x450/111/FFF?text=Video+Loading">
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-man-working-on-his-laptop-308-large.mp4" type="video/mp4">
                     </video>
                     <div class="video-overlay"><div class="video-title">Cinematic Brand Profile</div></div>
                 </div>
@@ -467,11 +465,11 @@
                         <h3 style="margin-bottom: 20px;">Kirim Pesan ✨</h3>
                         <form id="wishForm">
                             <div style="margin-bottom: 15px;">
-                                <label class="form-label">Nama</label>
+                                <label class="form-label" for="inputName">Nama</label>
                                 <input type="text" id="inputName" class="form-input" placeholder="Nama Kamu" required>
                             </div>
                             <div style="margin-bottom: 15px;">
-                                <label class="form-label">Pesan / Harapan</label>
+                                <label class="form-label" for="inputMsg">Pesan / Harapan</label>
                                 <textarea id="inputMsg" class="form-input" rows="3" placeholder="Tulis pesan positif..." required></textarea>
                             </div>
                             <button type="submit" class="btn-submit">
