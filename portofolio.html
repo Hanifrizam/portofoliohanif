@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hanif Riza | Portfolio Detail</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        /* --- 1. DESIGN TOKENS --- */
+        :root {
+            --bg-main: #050505;
+            --bg-secondary: #0F0F0F;
+            --card-bg: #141414;
+            
+            /* Gradient Accent */
+            --primary: #7B61FF;
+            --secondary: #00F0FF;
+            --accent-gradient: linear-gradient(135deg, #7B61FF 0%, #00F0FF 100%);
+            
+            --text-main: #FFFFFF;
+            --text-muted: #9CA3AF;
+            
+            --container-padding: 24px;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            
+            --glass-bg: rgba(20, 20, 20, 0.7);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+            --blur: blur(12px);
+        }
+
+        /* --- 2. RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        html { 
+            scroll-behavior: smooth; 
+            /* Penting: Agar saat klik menu, judul tidak tertutup header sticky */
+            scroll-padding-top: 140px; 
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* Extra padding bawah agar konten tidak tertutup menu HP */
+            padding-bottom: 100px; 
+        }
+
+        .container {
+            width: 100%; max-width: 1200px; margin: 0 auto; 
+            padding: 0 var(--container-padding);
+        }
+
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+
+        /* --- 3. NAVIGATION --- */
+        .navbar-desktop {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            padding: 16px 0; background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: var(--blur); border-bottom: var(--glass-border);
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { 
+            font-size: 1.25rem; font-weight: 700; color: white; text-decoration: none; 
+            font-family: 'Space Grotesk', sans-serif; display: flex; align-items: center; gap: 8px;
+        }
+        .nav-links { display: flex; gap: 32px; }
+        .nav-link { font-weight: 500; color: var(--text-muted); text-decoration: none; transition: 0.3s; font-size: 0.9rem; }
+        .nav-link:hover, .nav-link.active { color: white; }
+        
+        .btn-contact { 
+            background: white; color: black; padding: 10px 24px; border-radius: 50px; 
+            text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s;
+        }
+        .btn-contact:hover { background: var(--secondary); transform: scale(1.05); }
+
+        /* Mobile Nav */
+        .mobile-nav {
+            display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 350px; background: rgba(30, 30, 30, 0.9);
+            backdrop-filter: blur(20px); padding: 10px 25px; border-radius: 50px;
+            z-index: 9999; border: 1px solid rgba(255,255,255,0.15); justify-content: space-between;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .mobile-nav-item { 
+            display: flex; flex-direction: column; align-items: center; text-decoration: none; 
+            color: var(--text-muted); font-size: 0.7rem; font-weight: 500; gap: 2px;
+        }
+        .mobile-nav-item i { font-size: 1.3rem; margin-bottom: 2px; }
+        .mobile-nav-item.active { color: white; }
+        .mobile-nav-item.active i { color: var(--secondary); }
+
+        @media (max-width: 960px) {
+            .navbar-desktop { display: none; }
+            .mobile-nav { display: flex; }
+            /* Adjust scroll padding for mobile */
+            html { scroll-padding-top: 100px; } 
+        }
+
+        /* --- 4. HEADER & FILTER --- */
+        .page-header {
+            padding-top: 120px; padding-bottom: 40px; text-align: center;
+            background: radial-gradient(circle at top center, rgba(123, 97, 255, 0.15) 0%, transparent 60%);
+        }
+        .page-title { 
+            font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 12px; line-height: 1.1;
+        }
+        .page-desc { 
+            color: var(--text-muted); max-width: 500px; margin: 0 auto; font-size: 1rem; padding: 0 20px;
+        }
+
+        .filter-bar {
+            position: sticky; top: 73px; z-index: 900;
+            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px);
+            padding: 12px 0; border-bottom: var(--glass-border); border-top: var(--glass-border);
+            margin-bottom: 40px; 
+            /* Hide scrollbar */
+            overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none;
+        }
+        .filter-bar::-webkit-scrollbar { display: none; }
+
+        @media (max-width: 960px) { 
+            .filter-bar { top: 0; padding: 15px 0; } 
+            .page-header { padding-top: 60px; padding-bottom: 30px; }
+        }
+
+        .filter-list {
+            display: flex; gap: 10px; justify-content: center; list-style: none;
+            min-width: max-content; padding: 0 20px;
+        }
+        .filter-btn {
+            padding: 8px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.85rem;
+            transition: 0.3s; white-space: nowrap; background: rgba(255,255,255,0.03);
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary); color: white; border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(123, 97, 255, 0.3);
+        }
+
+        /* --- 5. PORTFOLIO CARDS (Grid System) --- */
+        .segment { padding: 20px 0; margin-bottom: 40px; }
+        .segment-title { 
+            font-size: 1.8rem; margin-bottom: 30px; display: flex; align-items: center; gap: 12px;
+            color: white; border-left: 4px solid var(--secondary); padding-left: 15px;
+        }
+
+        .grid-std { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; 
+        }
+        
+        .port-card {
+            background: var(--card-bg); border-radius: var(--radius-lg);
+            overflow: hidden; border: var(--glass-border); transition: 0.4s;
+            position: relative; display: flex; flex-direction: column; height: 100%;
+        }
+        .port-card:hover { 
+            transform: translateY(-5px); border-color: var(--primary); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+        }
+        
+        .card-img-wrap { 
+            width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; cursor: pointer; 
+        }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+        .port-card:hover .card-img { transform: scale(1.05); }
+        .card-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: 0.3s;
+        }
+        .port-card:hover .card-overlay { opacity: 1; }
+        .zoom-icon { 
+            font-size: 1.5rem; color: white; background: rgba(255,255,255,0.2); 
+            padding: 12px; border-radius: 50%; backdrop-filter: blur(5px); 
+        }
+
+        .card-body { padding: 24px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-tag { 
+            font-size: 0.7rem; color: var(--secondary); font-weight: 700; 
+            text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px;
+        }
+        .card-h { font-size: 1.25rem; margin-bottom: 10px; font-weight: 700; line-height: 1.3; }
+        .card-p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
+        
+        .stat-badge {
+            display: inline-flex; align-items: center; gap: 6px; 
+            background: rgba(123, 97, 255, 0.1); color: var(--primary);
+            padding: 6px 12px; border-radius: 8px; font-weight: 600; font-size: 0.8rem;
+            margin-top: auto; border: 1px solid rgba(123, 97, 255, 0.2); width: fit-content;
+        }
+
+        /* Video Grid */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .video-card { 
+            background: black; border-radius: var(--radius-lg); overflow: hidden; 
+            position: relative; aspect-ratio: 9/16; border: var(--glass-border); 
+        }
+        .video-card.landscape { aspect-ratio: 16/9; grid-column: span 2; }
+        .video-element { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .video-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; 
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); pointer-events: none;
+        }
+        .video-title { font-size: 1rem; font-weight: 700; color: white; }
+        .play-indicator {
+            position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); 
+            padding: 5px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 600; 
+            display: flex; align-items: center; gap: 5px; backdrop-filter: blur(5px);
+        }
+
+        @media (max-width: 768px) { 
+            .video-card.landscape { grid-column: span 1; aspect-ratio: 16/9; }
+            .grid-std { grid-template-columns: 1fr; }
+        }
+
+        /* --- 6. WALL OF WISHES (UI Enhanced) --- */
+        .wall-section {
+            padding: 60px 0; border-top: var(--glass-border); background: rgba(255,255,255,0.01);
+            margin-top: 40px;
+        }
+        .wall-layout { 
+            display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: start;
+        }
+
+        /* Form styling */
+        .wall-form-card {
+            background: var(--bg-secondary); padding: 24px; border-radius: var(--radius-lg);
+            border: var(--glass-border); position: sticky; top: 160px;
+        }
+        .form-label { display: block; color: var(--text-muted); margin-bottom: 8px; font-size: 0.85rem; font-weight: 600; }
+        .form-input {
+            width: 100%; background: var(--bg-main); border: 1px solid rgba(255,255,255,0.1);
+            color: white; padding: 12px; border-radius: var(--radius-md); font-family: inherit;
+            margin-bottom: 16px; transition: 0.3s;
+        }
+        .form-input:focus { outline: none; border-color: var(--primary); }
+        .btn-submit {
+            width: 100%; background: var(--accent-gradient); border: none; padding: 12px;
+            color: white; border-radius: var(--radius-md); font-weight: 700; cursor: pointer;
+            transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* Message List styling */
+        .wall-messages {
+            display: flex; flex-direction: column; gap: 16px;
+            max-height: 600px; overflow-y: auto; padding-right: 5px;
+        }
+        /* Mobile adjustment for Wall */
+        @media (max-width: 900px) { 
+            .wall-layout { grid-template-columns: 1fr; } 
+            .wall-form-card { position: relative; top: 0; margin-bottom: 20px; }
+            .wall-messages { max-height: 400px; } /* Batasi tinggi di HP agar tidak scroll jauh */
+        }
+
+        .msg-card {
+            background: var(--card-bg); padding: 16px; border-radius: 16px; 
+            border: var(--glass-border); animation: fadeIn 0.5s ease;
+        }
+        .msg-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .msg-name { font-weight: 700; color: var(--primary); font-size: 0.9rem; }
+        .msg-date { font-size: 0.75rem; color: var(--text-muted); }
+        .msg-text { font-size: 0.9rem; color: #eee; line-height: 1.5; font-style: italic; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- 7. FOOTER & LIGHTBOX --- */
+        .lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            z-index: 9999; display: none; align-items: center; justify-content: center; padding: 10px;
+        }
+        .lightbox.active { display: flex; animation: fadeIn 0.3s; }
+        .lightbox-img { max-width: 100%; max-height: 80vh; border-radius: 8px; }
+        .lightbox-close { 
+            position: absolute; top: 20px; right: 20px; color: white; 
+            font-size: 2.5rem; cursor: pointer; padding: 10px;
+        }
+
+        footer { 
+            text-align: center; padding: 40px 0; color: var(--text-muted); 
+            font-size: 0.85rem; border-top: var(--glass-border); margin-top: 40px; 
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-desktop">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><i class="ri-arrow-left-line"></i> Hanif<span>.</span></a>
+            <div class="nav-links">
+                <a href="#market" class="nav-link">Market</a>
+                <a href="#web" class="nav-link">Web Dev</a>
+                <a href="#creative" class="nav-link">Creative</a>
+                <a href="#wall" class="nav-link" style="color: var(--secondary);">Guestbook</a>
+            </div>
+            <a href="index.html#contact" class="btn-contact">Contact Me</a>
+        </div>
+    </nav>
+
+    <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <i class="ri-home-4-line"></i><span>Home</span>
+        </a>
+        <a href="#" class="mobile-nav-item active">
+            <i class="ri-briefcase-4-fill"></i><span>Portfolio</span>
+        </a>
+        <a href="#wall" class="mobile-nav-item">
+            <i class="ri-chat-smile-3-line"></i><span>Wall</span>
+        </a>
+    </nav>
+
+    <header class="page-header container">
+        <h1 class="page-title">Selected Works</h1>
+        <p class="page-desc">Sebuah kurasi proyek yang menggabungkan strategi data, teknologi web, dan kreativitas visual.</p>
+    </header>
+
+    <div class="filter-bar">
+        <ul class="filter-list">
+            <li><a href="#market" class="filter-btn active">Market Analysis</a></li>
+            <li><a href="#web" class="filter-btn">Web Development</a></li>
+            <li><a href="#creative" class="filter-btn">Creative</a></li>
+            <li><a href="#activation" class="filter-btn">Activation</a></li>
+            <li><a href="#wall" class="filter-btn" style="border-color:var(--secondary); color:var(--secondary);">✨ Wall</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        
+        <section id="market" class="segment">
+            <h2 class="segment-title">Market Analysis</h2>
+            <div class="grid-std">
+                <div class="port-card">
+                    <div class="card-img-wrap" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Data" class="card-img" loading="lazy">
+                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag">F&B Industry</span>
+                        <h3 class="card-h">Coffee Shop Expansion</h3>
+                        <p class="card-p">Analisis kompetitor dan demografi lokasi untuk pembukaan 5 cabang baru.</p>
+                        <div class="stat-badge"><i class="ri-arrow-up-line"></i> 150% Growth</div>
+                    </div>
+                </div>
+                <div class="port-card">
+                    <div class="card-img-wrap" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Data" class="card-img" loading="lazy">
+                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag">Tech Startup</span>
+                        <h3 class="card-h">User Acquisition Strategy</h3>
+                        <p class="card-p">Optimasi funnel marketing & A/B testing ads untuk menekan CPA.</p>
+                        <div class="stat-badge"><i class="ri-arrow-down-line"></i> 40% CPA</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="web" class="segment">
+            <h2 class="segment-title">Web Development</h2>
+            <div class="grid-std">
+                <div class="port-card">
+                    <div class="card-img-wrap" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=800&q=80" alt="Web" class="card-img" loading="lazy">
+                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag">E-Commerce</span>
+                        <h3 class="card-h">Fashion Brand Store</h3>
+                        <p class="card-p">Website toko online responsif dengan integrasi payment gateway.</p>
+                        <div class="stat-badge"><i class="ri-code-s-slash-line"></i> Midtrans Integrated</div>
+                    </div>
+                </div>
+                <div class="port-card">
+                    <div class="card-img-wrap" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf7d?auto=format&fit=crop&w=800&q=80" alt="Web" class="card-img" loading="lazy">
+                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag">Company Profile</span>
+                        <h3 class="card-h">Corporate Landing Page</h3>
+                        <p class="card-p">Website profil perusahaan modern dengan animasi scroll interaktif.</p>
+                        <div class="stat-badge"><i class="ri-speed-line"></i> SEO Optimized</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="creative" class="segment">
+            <h2 class="segment-title">Content Creative</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto Play</div>
+                    <video class="video-element" muted loop playsinline poster="https://via.placeholder.com/300x533/111/333?text=Video+Loading">
+                        <source src="https://videos.pexels.com/video-files/3205908/3205908-uhd_2160_4096_25fps.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay"><div class="video-title">Reels: Product Launch</div></div>
+                </div>
+                <div class="video-card">
+                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto Play</div>
+                    <video class="video-element" muted loop playsinline>
+                        <source src="https://videos.pexels.com/video-files/4434242/4434242-hd_1080_1920_24fps.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay"><div class="video-title">Story: Event Highlight</div></div>
+                </div>
+                <div class="video-card landscape">
+                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto Play</div>
+                    <video class="video-element" muted loop playsinline>
+                        <source src="https://videos.pexels.com/video-files/3195394/3195394-uhd_3840_2160_25fps.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay"><div class="video-title">Cinematic Brand Profile</div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="activation" class="segment">
+            <h2 class="segment-title">Activation & Event</h2>
+            <div class="grid-std">
+                <div class="port-card">
+                    <div class="card-img-wrap" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80" alt="Event" class="card-img" loading="lazy">
+                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag">Tech Conference</span>
+                        <h3 class="card-h">Tech Summit 2025</h3>
+                        <p class="card-p">Event Management untuk konferensi teknologi internasional.</p>
+                        <div class="stat-badge"><i class="ri-user-star-line"></i> 500+ Attendees</div>
+                    </div>
+                </div>
+                <div class="port-card">
+                    <div class="card-img-wrap" onclick="openLightbox(this)">
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80" alt="Event" class="card-img" loading="lazy">
+                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag">Brand Activation</span>
+                        <h3 class="card-h">Music Festival Booth</h3>
+                        <p class="card-p">Perancangan booth interaktif pada festival musik.</p>
+                        <div class="stat-badge"><i class="ri-thumb-up-line"></i> 10k+ Interactions</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <section id="wall" class="wall-section">
+        <div class="container">
+            <div class="segment-title" style="border-color: var(--primary);">
+                Wall of Wishes
+                <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 400; margin-left: 10px;">Leave a message!</span>
+            </div>
+            
+            <div class="wall-layout">
+                <div class="wall-form-area">
+                    <div class="wall-form-card">
+                        <h3 style="margin-bottom: 20px;">Kirim Pesan ✨</h3>
+                        <form id="wishForm">
+                            <div style="margin-bottom: 15px;">
+                                <label class="form-label">Nama</label>
+                                <input type="text" id="inputName" class="form-input" placeholder="Nama Kamu" required>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label class="form-label">Pesan / Harapan</label>
+                                <textarea id="inputMsg" class="form-input" rows="3" placeholder="Tulis pesan positif..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn-submit">
+                                Kirim <i class="ri-send-plane-fill"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="wall-messages" id="messagesContainer">
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="Preview" class="lightbox-img" id="lightbox-img">
+    </div>
+
+    <footer>
+        &copy; 2026 Hanif Riza. All Rights Reserved.
+    </footer>
+
+    <script>
+        // 1. VIDEO AUTOPLAY
+        const videos = document.querySelectorAll('video');
+        const observerVideo = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.play().catch(()=>{});
+                else entry.target.pause();
+            });
+        }, { threshold: 0.5 });
+        videos.forEach(video => observerVideo.observe(video));
+
+        // 2. ACTIVE LINK ON SCROLL
+        const sections = document.querySelectorAll('section');
+        const navLi = document.querySelectorAll('.filter-btn');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 250) current = section.getAttribute('id');
+            });
+            navLi.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(current)) a.classList.add('active');
+            });
+        });
+
+        // 3. LIGHTBOX
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        function openLightbox(element) {
+            const img = element.querySelector('img');
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 4. WALL OF WISHES
+        const wishForm = document.getElementById('wishForm');
+        const messagesContainer = document.getElementById('messagesContainer');
+        const dummyData = [
+            { name: "Siti HRD", msg: "Portofolionya sangat rapi dan detail, Hanif!", date: "Just now" },
+            { name: "Manager", msg: "Suka dengan bagian Market Analysis-nya.", date: "1 hour ago" },
+            { name: "Visitor", msg: "Semoga sukses terus karirnya kak!", date: "2 hours ago" }
+        ];
+
+        function loadMessages() {
+            const storedMessages = JSON.parse(localStorage.getItem('hanif_msgs')) || dummyData;
+            messagesContainer.innerHTML = '';
+            storedMessages.forEach(data => createMessageCard(data.name, data.msg, data.date));
+        }
+
+        function createMessageCard(name, msg, date) {
+            const card = document.createElement('div');
+            card.className = 'msg-card';
+            card.innerHTML = `
+                <div class="msg-header">
+                    <span class="msg-name">${name}</span>
+                    <span class="msg-date">${date}</span>
+                </div>
+                <div class="msg-text">"${msg}"</div>
+            `;
+            messagesContainer.prepend(card);
+        }
+
+        wishForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('inputName').value;
+            const msg = document.getElementById('inputMsg').value;
+            const date = "Baru saja";
+            
+            createMessageCard(name, msg, date);
+            
+            const newMsgObj = { name, msg, date };
+            const currentData = JSON.parse(localStorage.getItem('hanif_msgs')) || dummyData;
+            currentData.push(newMsgObj);
+            localStorage.setItem('hanif_msgs', JSON.stringify(currentData));
+            
+            wishForm.reset();
+        });
+
+        loadMessages();
+    </script>
+</body>
+</html>
