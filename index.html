@@ -3,285 +3,390 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khusus Untuk Rismong!</title>
+    <title>Hanif | Portfolio</title>
     <style>
-        /* Mengimpor font lucu dari Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;700&display=swap');
-
-        /* Style dasar untuk halaman */
-        body {
-            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-            font-family: 'Nunito', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+        /* --- RESET & BASE STYLES --- */
+        * {
             margin: 0;
-            overflow: hidden; /* Mencegah scroll */
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Menyembunyikan kursor asli untuk diganti custom cursor */
         }
 
-        /* Kontainer utama sebagai kartu ucapan */
-        .card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            max-width: 90%;
-            width: 400px;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-        
-        /* Gambar stiker animasi */
-        #sticker {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 20px auto;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover #sticker {
-            transform: scale(1.05);
-        }
-
-        /* Pesan teks */
-        #message {
-            font-size: 1.2em;
-            color: #555;
-            margin-bottom: 30px;
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Judul utama (Selamat Ulang Tahun) */
-        .title {
-            font-family: 'Pacifico', cursive;
-            color: #e91e63; /* Warna pink khas */
-            font-size: 1.8em;
+        /* --- TYPOGRAPHY --- */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
         }
 
-        /* Kontainer untuk tombol-tombol */
-        .button-container {
+        .highlight {
+            color: #d4af37; /* Warna Emas Elegan */
+            font-style: italic;
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background-color: #d4af37;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-        }
-        
-        .choice-buttons {
-            display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 10px;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+            position: relative;
         }
 
-        /* Gaya umum untuk tombol */
-        .button {
-            background-color: #ff8fab;
+        .hero h1 {
+            font-size: 5vw;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 0.5s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #aaa;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 0.8s;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.5s;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, #d4af37, transparent);
+            margin: 0 auto;
+        }
+
+        /* --- SKILLS SECTION --- */
+        .skills-section {
+            padding: 100px 10%;
+            background: #0a0a0a;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            border-left: 3px solid #d4af37;
+            padding-left: 20px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #d4af37;
+        }
+
+        .skill-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .skill-card p {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* --- PORTFOLIO CATEGORIES (The 4 Segments) --- */
+        .portfolio-gateway {
+            padding: 100px 5%;
+            display: flex;
+            flex-wrap: wrap;
+            height: 100vh;
+        }
+
+        .gateway-item {
+            flex: 1 1 25%;
+            min-width: 250px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.5s ease;
+            text-decoration: none;
             color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+            flex-direction: column;
         }
 
-        .button:hover {
-            background-color: #e91e63;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+        .gateway-item:last-child {
+            border-right: none;
         }
 
-        #forgive-btn {
-            background-color: #4CAF50; /* Hijau untuk afirmatif */
-        }
-        #forgive-btn:hover {
-            background-color: #45a049;
+        .gateway-item:hover {
+            flex: 1 1 40%; /* Expand effect */
+            background: #111;
         }
 
-        #no-forgive-btn {
-            background-color: #f44336; /* Merah untuk negatif */
-        }
-        #no-forgive-btn:hover {
-            background-color: #e53935;
+        .gateway-number {
+            font-size: 1rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+            opacity: 0.7;
         }
 
-        /* Kelas untuk menyembunyikan elemen */
-        .hidden {
-            display: none;
+        .gateway-title {
+            font-size: 2rem;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+            z-index: 2;
         }
-        
-        /* Konfeti untuk momen akhir */
-        .love-container {
-            position: fixed;
+
+        .gateway-bg {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Agar tidak bisa diklik */
-            overflow: hidden;
-            z-index: 9999;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+            filter: grayscale(100%);
         }
 
-        .love {
-            position: absolute;
-            font-size: 1.5rem;
-            animation: fall 5s linear infinite;
+        .gateway-item:hover .gateway-bg {
+            opacity: 0.2;
         }
 
-        @keyframes fall {
-            0% {
-                top: -10%;
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeUp {
+            to {
                 opacity: 1;
+                transform: translateY(0);
             }
-            100% {
-                top: 110%;
-                opacity: 0;
-                transform: rotate(360deg);
-            }
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 10vw; }
+            .gateway-item { border-bottom: 1px solid rgba(255,255,255,0.1); border-right: none; }
+            .portfolio-gateway { height: auto; flex-direction: column; }
+            .gateway-item { height: 200px; }
         }
     </style>
 </head>
 <body>
 
-    <audio id="birthday-song" loop>
-        <source src="Selamat ulang tahun.mp3" type="audio/mpeg">
-        Browser kamu tidak mendukung elemen audio.
-    </audio>
-    <div id="love-container" class="love-container"></div>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
 
-    <div class="card" id="birthday-card">
-        <img id="sticker" src="https://media.tenor.com/zDChDUnpKpAAAAAM/yellow-dragon-nailong.gif" alt="Stiker Lucu">
-        <p id="message">Hai Rismong, ada sesuatu buat kamu nih! Klik di bawah yaa...</p>
+    <header>
+        <div class="logo">HANIF.</div>
+        <div style="font-size: 0.9rem; letter-spacing: 1px;">PORTFOLIO 2026</div>
+    </header>
+
+    <section class="hero">
+        <h1>Muhammad <span class="highlight">Hanif</span><br>Riza Mubarak</h1>
+        <p>Turning complexity into elegance through Data, Design, and Development.</p>
         
-        <div class="button-container">
-            <button class="button" id="next-btn-1">Selanjutnya</button>
-            
-            <button class="button hidden" id="next-btn-2">Lanjut lagi yuk!</button>
-            
-            <button class="button hidden" id="next-btn-3">Satu kali lagi...</button>
-            
-            <div id="choice-container" class="choice-buttons hidden">
-                <button class="button" id="forgive-btn">Maafin</button>
-                <button class="button" id="no-forgive-btn">Gak dimaafin</button>
+        <div class="scroll-indicator">
+            <div style="margin-bottom:10px; font-size: 0.8rem; letter-spacing: 2px;">SCROLL</div>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <section class="skills-section">
+        <h2 class="section-title">Professional Expertise</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>Market Analysis</h3>
+                <p>Membaca data pasar untuk menemukan peluang strategis yang tersembunyi.</p>
+            </div>
+            <div class="skill-card">
+                <h3>Web Development</h3>
+                <p>Membangun pengalaman digital yang interaktif, cepat, dan responsif.</p>
+            </div>
+            <div class="skill-card">
+                <h3>Content Editor</h3>
+                <p>Merangkai visual dan narasi untuk *storytelling* yang berdampak.</p>
+            </div>
+            <div class="skill-card">
+                <h3>Digital Marketing</h3>
+                <p>Strategi pemasaran berbasis performa untuk menjangkau audiens tepat.</p>
+            </div>
+            <div class="skill-card">
+                <h3>Activation Marketing</h3>
+                <p>Menciptakan *campaign* dan *event* yang membangun koneksi nyata dengan brand.</p>
             </div>
         </div>
-    </div>
+    </section>
+
+    <section class="portfolio-gateway">
+        <a href="#marketing" class="gateway-item">
+            <span class="gateway-number">01</span>
+            <span class="gateway-title">Marketing</span>
+            <div class="gateway-bg" style="background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80');"></div>
+        </a>
+        <a href="#it" class="gateway-item">
+            <span class="gateway-number">02</span>
+            <span class="gateway-title">IT & Dev</span>
+            <div class="gateway-bg" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80');"></div>
+        </a>
+        <a href="#design" class="gateway-item">
+            <span class="gateway-number">03</span>
+            <span class="gateway-title">Design</span>
+            <div class="gateway-bg" style="background-image: url('https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=800&q=80');"></div>
+        </a>
+        <a href="#administration" class="gateway-item">
+            <span class="gateway-number">04</span>
+            <span class="gateway-title">Administration</span>
+            <div class="gateway-bg" style="background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80');"></div>
+        </a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Muhammad Hanif Riza Mubarak. All Rights Reserved.</p>
+    </footer>
 
     <script>
-        // Mengambil elemen dari HTML
-        const sticker = document.getElementById('sticker');
-        const message = document.getElementById('message');
-        
-        const nextBtn1 = document.getElementById('next-btn-1');
-        const nextBtn2 = document.getElementById('next-btn-2');
-        const nextBtn3 = document.getElementById('next-btn-3');
+        // Custom Cursor Logic
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
 
-        const choiceContainer = document.getElementById('choice-container');
-        const forgiveBtn = document.getElementById('forgive-btn');
-        const noForgiveBtn = document.getElementById('no-forgive-btn');
-        
-        const loveContainer = document.getElementById('love-container');
-
-        // =============================================
-        // BAGIAN BARU YANG DITAMBAHKAN: MENGAMBIL ELEMEN AUDIO
-        const backgroundMusic = document.getElementById('birthday-song');
-        let musicStarted = false;
-        // =============================================
-
-        // Variabel untuk melacak ukuran tombol "Maafin"
-        let forgiveButtonScale = 1;
-        let forgiveButtonFontSize = 1;
-
-        // Daftar stiker dan pesan untuk setiap tahapan
-        const stages = [
-            { // Tahap 1: Ucapan Ulang Tahun
-                sticker: "https://media1.tenor.com/m/sjwmn6VDG3MAAAAd/nailong-yellow-dragon.gif",
-                message: `<span class="title">Selamat Ulang Tahun yang ke 21 Rismong ❤️❤️❤️</span>`
-            },
-            { // Tahap 2: Doa dan Harapan
-                sticker: "https://i.pinimg.com/originals/31/a6/f2/31a6f228b0d836bbeecec4934be70003.gif",
-                message: "Semoga kamu diberikan kesehatan selalu dan panjang umurnyaa yeyyy 😉😉😉"
-            },
-            { // Tahap 3: Permintaan Maaf
-                sticker: "https://media1.tenor.com/m/aqQM4YJbKJUAAAAC/nailong.gif",
-                message: "Maafin aku yang kemarin ya, karena terlalu sibuk dan buat kamu BT dan gak ngabarin juga dari aku :("
-            },
-            { // Tahap 4: Dimaafin!
-                sticker: "https://media.tenor.com/2xPVz92YNMoAAAAM/dance.gif",
-                message: `<span class="title">Aaaaaaa thankyouuuu so muchh 🥺🥺🥺🥺</span>`
-            }
-        ];
-
-        // Fungsi untuk membuat hujan emoji hati
-        function createLoveRain() {
-            const loveEmojis = ['❤️', '💖', '🥰', '💕', '😍'];
-            setInterval(() => {
-                const love = document.createElement('div');
-                love.classList.add('love');
-                love.innerText = loveEmojis[Math.floor(Math.random() * loveEmojis.length)];
-                love.style.left = Math.random() * 100 + 'vw';
-                love.style.animationDuration = Math.random() * 2 + 3 + 's'; // durasi 3-5 detik
-                loveContainer.appendChild(love);
-                
-                // Hapus emoji setelah animasinya selesai
-                setTimeout(() => {
-                    love.remove();
-                }, 5000);
-            }, 200); // Munculkan hati baru setiap 200ms
-        }
-
-        // Event Listener untuk tombol-tombol "Selanjutnya"
-        nextBtn1.addEventListener('click', () => {
-            // =============================================
-            // BAGIAN BARU YANG DITAMBAHKAN: MEMULAI MUSIK
-            if (!musicStarted) {
-                backgroundMusic.play();
-                musicStarted = true;
-            }
-            // =============================================
+        document.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
             
-            sticker.src = stages[0].sticker;
-            message.innerHTML = stages[0].message;
-            nextBtn1.classList.add('hidden');
-            nextBtn2.classList.remove('hidden');
+            // Sedikit delay untuk efek "trailing" pada lingkaran besar
+            setTimeout(() => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            }, 50);
         });
 
-        nextBtn2.addEventListener('click', () => {
-            sticker.src = stages[1].sticker;
-            message.innerHTML = stages[1].message;
-            nextBtn2.classList.add('hidden');
-            nextBtn3.classList.remove('hidden');
+        // Hover Effect pada Link (Cursor membesar)
+        const links = document.querySelectorAll('a, .skill-card');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(2.5)';
+                cursor.style.backgroundColor = 'rgba(255,255,255,0.1)';
+                cursor.style.borderColor = 'transparent';
+            });
+            link.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursor.style.backgroundColor = 'transparent';
+                cursor.style.borderColor = 'rgba(255,255,255,0.5)';
+            });
         });
 
-        nextBtn3.addEventListener('click', () => {
-            sticker.src = stages[2].sticker;
-            message.innerHTML = stages[2].message;
-            nextBtn3.classList.add('hidden');
-            choiceContainer.classList.remove('hidden');
-        });
+        // Scroll Reveal Animation (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1
+        };
 
-        // Event listener untuk tombol "Gak dimaafin"
-        noForgiveBtn.addEventListener('click', () => {
-            forgiveButtonScale += 0.2; // Tambah skala
-            forgiveButtonFontSize += 0.2; // Tambah ukuran font
-            forgiveBtn.style.transform = `scale(${forgiveButtonScale})`;
-            forgiveBtn.style.fontSize = `${forgiveButtonFontSize}em`;
-        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
 
-        // Event listener untuk tombol "Maafin"
-        forgiveBtn.addEventListener('click', () => {
-            sticker.src = stages[3].sticker;
-            message.innerHTML = stages[3].message;
-            choiceContainer.classList.add('hidden');
-            
-            // Tampilkan hujan cinta!
-            createLoveRain();
+        document.querySelectorAll('.skill-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
         });
-
     </script>
 </body>
 </html>
