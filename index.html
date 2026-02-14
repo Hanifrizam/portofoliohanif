@@ -29,13 +29,16 @@
 
         /* --- 2. RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html { scroll-behavior: smooth; }
+        
+        html { scroll-behavior: smooth; overflow-x: hidden; } 
+        
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-main);
             color: var(--text-main);
             line-height: 1.6;
-            overflow-x: hidden;
+            overflow-x: hidden; 
+            width: 100%;
             padding-bottom: 80px;
         }
         .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding); }
@@ -71,7 +74,7 @@
             overflow: hidden;
         }
         .welcome-content {
-            text-align: center; padding: 40px 30px; background: var(--card-bg);
+            text-align: center; padding: 50px 30px; background: var(--card-bg);
             border: var(--glass-border); border-radius: var(--radius-lg);
             box-shadow: 0 20px 50px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.05);
             max-width: 90%; width: 420px; position: relative; z-index: 2;
@@ -82,13 +85,19 @@
             0% { opacity: 0; transform: scale(0.8) translateY(30px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-        .welcome-avatar {
-            width: 90px; height: 90px; margin: 0 auto 20px;
-            border-radius: 50%; border: 3px solid transparent;
-            background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, var(--accent-gradient) border-box;
-            padding: 4px; overflow: hidden; box-shadow: 0 0 25px rgba(123, 97, 255, 0.3);
+
+        /* TEXT LOGO UNTUK POPUP */
+        .welcome-logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+            display: inline-block;
         }
-        .welcome-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .welcome-logo span { color: var(--primary); }
+
         .welcome-title { font-size: 1.6rem; margin-bottom: 12px; color: white; font-family: 'Space Grotesk', sans-serif; font-weight: 700;}
         .welcome-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 32px; line-height: 1.5; }
         .welcome-buttons { display: flex; flex-direction: column; gap: 14px; }
@@ -207,7 +216,7 @@
 
         /* --- 5. BUTTONS & FLOATING WA --- */
         .btn {
-            display: inline-flex; align-items: center; gap: 8px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             padding: 14px 32px; border-radius: 50px; font-weight: 700;
             text-decoration: none; transition: all 0.3s ease; cursor: pointer;
             border: none; font-family: inherit; font-size: 1rem;
@@ -236,7 +245,7 @@
 
         .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center; }
         .hero-content h1 { font-size: clamp(3rem, 6vw, 5rem); line-height: 1.1; font-weight: 700; margin-bottom: 24px; }
-        .hero-content p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 32px; max-width: 500px; }
+        .hero-content p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 32px; max-width: 550px; }
         .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
         
         .hero-img-wrap { position: relative; display: flex; justify-content: center; }
@@ -256,15 +265,16 @@
         .skill-name { font-weight: 700; color: white; margin-bottom: 4px; }
         .skill-sub { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* --- 8. SOFTWARE & TOOLS (MARQUEE) --- */
+        /* --- 8. SOFTWARE & TOOLS (MARQUEE) DENGAN ICONIFY API --- */
         .tools-section {
             padding: 60px 0; background: rgba(255, 255, 255, 0.02);
             border-bottom: var(--glass-border); overflow: hidden;
         }
         .tools-header { text-align: center; margin-bottom: 40px; }
+        
         .marquee-container {
-            display: flex; width: 100vw; max-width: 100%; position: relative;
-            margin-left: calc(-50vw + 50%); right: 0;
+            display: flex; width: 100%; position: relative; overflow: hidden;
+            padding: 15px 0; 
         }
         .marquee-container::before, .marquee-container::after {
             content: ''; position: absolute; top: 0; width: 80px; height: 100%; z-index: 2; pointer-events: none;
@@ -274,7 +284,7 @@
 
         .marquee-content {
             display: flex; gap: 20px; padding-right: 20px;
-            animation: scrollLeft 40s linear infinite; width: max-content;
+            animation: scrollLeft 35s linear infinite; width: max-content;
         }
         .marquee-container:hover .marquee-content { animation-play-state: paused; }
 
@@ -283,7 +293,9 @@
             background: var(--card-bg); border: var(--glass-border); border-radius: 50px;
             color: white; font-weight: 600; font-size: 0.95rem; transition: 0.3s;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3); cursor: default; white-space: nowrap;
+            flex-shrink: 0; 
         }
+        /* Memastikan ukuran logo seragam */
         .tool-badge img { width: 24px; height: 24px; object-fit: contain; }
         .tool-badge:hover {
             border-color: var(--secondary); box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
@@ -316,7 +328,7 @@
         .achieve-info p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px; }
         .achieve-year {
             font-size: 0.75rem; font-weight: 700; color: var(--secondary); background: rgba(0, 240, 255, 0.1);
-            padding: 4px 12px; border-radius: 50px; border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 4px 12px; border-radius: 50px; border: 1px solid rgba(0, 240, 255, 0.2); display: inline-block;
         }
 
         /* --- 11. PORTFOLIO PREVIEW --- */
@@ -332,12 +344,66 @@
         .port-title { color: white; font-size: 1.4rem; margin: 8px 0; font-weight: 700; }
         .port-desc { color: var(--text-muted); font-size: 0.9rem; }
 
+        /* --- 12. PDF MODAL VIEWER --- */
+        .pdf-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            z-index: 100000; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden;
+            transition: all 0.4s ease;
+        }
+        .pdf-modal.active { opacity: 1; visibility: visible; }
+        .pdf-header {
+            width: 90%; max-width: 1000px; padding: 16px 24px;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--bg-secondary); border-radius: 16px 16px 0 0;
+            border: var(--glass-border); border-bottom: none;
+        }
+        .pdf-title { color: white; font-weight: 700; font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; }
+        .pdf-close {
+            background: rgba(255,255,255,0.1); border: none; color: white;
+            width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; transition: 0.3s;
+        }
+        .pdf-close:hover { background: var(--primary); transform: rotate(90deg); }
+        .pdf-container {
+            width: 90%; max-width: 1000px; height: 80vh;
+            background: white; border-radius: 0 0 16px 16px;
+            overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .pdf-container iframe { width: 100%; height: 100%; border: none; display: block; }
+
+        /* --- 13. NOTIFICATION TOAST --- */
+        .toast-container {
+            position: fixed; top: 24px; right: 24px; z-index: 100001;
+            display: flex; flex-direction: column; gap: 12px; pointer-events: none;
+        }
+        .toast {
+            background: var(--card-bg); border-left: 4px solid var(--primary);
+            color: white; padding: 16px 24px; border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            display: flex; align-items: center; gap: 12px; font-weight: 500; font-size: 0.95rem;
+            transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .toast.show { transform: translateX(0); }
+        .toast i { font-size: 1.5rem; color: var(--primary); }
+        .toast.success { border-left-color: #25d366; }
+        .toast.success i { color: #25d366; }
+        .toast.info { border-left-color: var(--secondary); }
+        .toast.info i { color: var(--secondary); }
+
         @media (max-width: 960px) {
             .hero { padding-top: 80px; text-align: center; height: auto; padding-bottom: 60px; }
             .hero-grid { grid-template-columns: 1fr; gap: 40px; }
             .hero-content { order: 2; } .hero-img-wrap { order: 1; }
-            .hero-actions { justify-content: center; width: 100%; } .btn { width: 100%; justify-content: center; }
+            .hero-actions { justify-content: center; width: 100%; } 
+            .btn { width: 100%; } 
             .stats-grid { gap: 20px; } .stat-item { flex: 1 1 40%; }
+            .pdf-header, .pdf-container { width: 95%; }
+            .toast-container { top: 20px; left: 20px; right: 20px; align-items: flex-end; }
         }
     </style>
 </head>
@@ -347,11 +413,23 @@
         <div class="spinner"></div>
     </div>
 
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="pdf-modal" id="pdfModal">
+        <div class="pdf-header">
+            <div class="pdf-title" id="pdfTitle">Preview Document</div>
+            <button class="pdf-close" onclick="closePDF()"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="pdf-container">
+            <iframe id="pdfFrame" src=""></iframe>
+        </div>
+    </div>
+
     <div id="welcomeOverlay" class="welcome-overlay">
         <div class="welcome-content" id="welcomeContent">
-            <div class="welcome-avatar">
-                <img src="hanif formal png.png" alt="Hanif Riza">
-            </div>
+            
+            <div class="welcome-logo">Hanif<span>.</span></div>
+            
             <h2 class="welcome-title">Hai! Welcome to my space ✨</h2>
             <p class="welcome-desc">Siap melihat bagaimana data, kode, dan kreativitas bersatu untuk menciptakan dampak digital yang nyata?</p>
             
@@ -410,11 +488,13 @@
                         <span class="type-text"></span><span class="type-cursor"></span>
                     </h1>
                     <p>
-                        Seorang profesional yang menggabungkan <strong>Data Analysis</strong>, <strong>Web Development</strong>, dan <strong>Creative Strategy</strong> untuk menciptakan dampak digital yang nyata.
+                        Seorang antusias Marketing yang menggabungkan kemampuan <strong>Digital & Brand Marketing</strong>, <strong>Motion Graphic Animation</strong>, dan <strong>Video Editing</strong> untuk menciptakan kampanye dan konten yang berdampak.
                     </p>
+                    
                     <div class="hero-actions">
                         <a href="portofolio.html" class="btn btn-primary transition-link">Lihat Karya Saya <i class="ri-arrow-right-line"></i></a>
-                        <a href="#" class="btn btn-outline" onclick="alert('Fitur download CV akan segera tersedia!')"><i class="ri-download-cloud-2-line"></i> Download CV</a>
+                        <button class="btn btn-outline" onclick="openPDF('RESUME_Muhammad Hanif Riza Mubarak.pdf', 'Preview CV')"><i class="ri-file-list-3-line"></i> Preview CV</button>
+                        <button class="btn btn-outline" onclick="openPDF('Portofolio Project Hanif.pdf', 'Preview Portofolio')"><i class="ri-book-read-line"></i> Preview Portofolio</button>
                     </div>
                 </div>
                 <div class="hero-img-wrap">
@@ -428,9 +508,9 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item"><div class="stat-num gradient-text" data-target="3">0</div><div class="stat-desc">Years Experience</div></div>
-                <div class="stat-item"><div class="stat-num gradient-text" data-target="15">0</div><div class="stat-desc">Projects Done</div></div>
+                <div class="stat-item"><div class="stat-num gradient-text" data-target="50">0</div><div class="stat-desc">Projects Done</div></div>
                 <div class="stat-item"><div class="stat-num gradient-text" data-target="10">0</div><div class="stat-desc">Happy Clients</div></div>
-                <div class="stat-item"><div class="stat-num gradient-text" data-target="5">0</div><div class="stat-desc">Awards Won</div></div>
+                <div class="stat-item"><div class="stat-num gradient-text" data-target="3">0</div><div class="stat-desc">Awards Won</div></div>
             </div>
         </div>
     </section>
@@ -455,49 +535,49 @@
         
         <div class="marquee-container">
             <div class="marquee-content">
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/microsoftword/2B579A" alt="Word"> Word</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/microsoftpowerpoint/B7472A" alt="PowerPoint"> PowerPoint</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/microsoftexcel/217346" alt="Excel"> Excel</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/googleanalytics/E37400" alt="Analytics"> Google Analytics</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/googletrends/4285F4" alt="Trends"> Google Trends</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/visualstudiocode/007ACC" alt="VS Code"> VS Code</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/googlegemini/8E75B2" alt="Gemini"> Gemini</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/wordpress/21759B" alt="WordPress"> WordPress</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/hostinger/673DE6" alt="Hostinger"> Hostinger</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/mailchimp/FFE01B" alt="Mailchimp"> Mailchimp</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/openai/412991" alt="ChatGPT"> ChatGPT</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/canva/00C4CC" alt="Canva"> Canva</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/elevenlabs/FFFFFF" alt="ElevenLabs"> ElevenLabs</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/adobeaftereffects/9999FF" alt="After Effects"> After Effects</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/adobepremierepro/9999FF" alt="Premiere Pro"> Premiere Pro</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/adobephotoshop/31A8FF" alt="Photoshop"> Photoshop</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/davinciresolve/CA1128" alt="DaVinci Resolve"> DaVinci Resolve</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma"> Figma</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/github/FFFFFF" alt="GitHub"> GitHub</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/capcut/FFFFFF" alt="CapCut"> CapCut</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/supabase/3ECF8E" alt="Supabase"> Supabase</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/vscode-icons:file-type-word.svg" alt="Word"> Word</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/vscode-icons:file-type-powerpoint.svg" alt="PowerPoint"> PowerPoint</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/vscode-icons:file-type-excel.svg" alt="Excel"> Excel</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:google-analytics.svg" alt="Analytics"> Google Analytics</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/simple-icons:googletrends.svg?color=white" alt="Trends"> Google Trends</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:visual-studio-code.svg" alt="VS Code"> VS Code</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:google-gemini.svg" alt="Gemini"> Gemini</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/skill-icons:wordpress.svg" alt="WordPress"> WordPress</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:hostinger-icon.svg" alt="Hostinger"> Hostinger</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:mailchimp-freddie.svg" alt="Mailchimp"> Mailchimp</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:openai-icon.svg" alt="ChatGPT"> ChatGPT</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/skill-icons:canva.svg" alt="Canva"> Canva</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/simple-icons:elevenlabs.svg?color=white" alt="ElevenLabs"> ElevenLabs</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:adobe-after-effects.svg" alt="After Effects"> After Effects</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:adobe-premiere.svg" alt="Premiere Pro"> Premiere Pro</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/simple-icons:adobecreativecloud.svg?color=white" alt="Media Encoder"> Media Encoder</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:figma.svg" alt="Figma"> Figma</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/vscode-icons:file-type-photoshop.svg" alt="Photoshop"> Photoshop</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/skill-icons:davinciresolve.svg" alt="DaVinci Resolve"> DaVinci Resolve</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/mdi:github.svg?color=white" alt="GitHub"> GitHub</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/simple-icons:capcut.svg?color=white" alt="CapCut"> CapCut</div>
                 
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/microsoftword/2B579A" alt="Word"> Word</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/microsoftpowerpoint/B7472A" alt="PowerPoint"> PowerPoint</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/microsoftexcel/217346" alt="Excel"> Excel</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/googleanalytics/E37400" alt="Analytics"> Google Analytics</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/googletrends/4285F4" alt="Trends"> Google Trends</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/visualstudiocode/007ACC" alt="VS Code"> VS Code</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/googlegemini/8E75B2" alt="Gemini"> Gemini</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/wordpress/21759B" alt="WordPress"> WordPress</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/hostinger/673DE6" alt="Hostinger"> Hostinger</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/mailchimp/FFE01B" alt="Mailchimp"> Mailchimp</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/openai/412991" alt="ChatGPT"> ChatGPT</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/canva/00C4CC" alt="Canva"> Canva</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/elevenlabs/FFFFFF" alt="ElevenLabs"> ElevenLabs</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/adobeaftereffects/9999FF" alt="After Effects"> After Effects</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/adobepremierepro/9999FF" alt="Premiere Pro"> Premiere Pro</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/adobephotoshop/31A8FF" alt="Photoshop"> Photoshop</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/davinciresolve/CA1128" alt="DaVinci Resolve"> DaVinci Resolve</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma"> Figma</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/github/FFFFFF" alt="GitHub"> GitHub</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/capcut/FFFFFF" alt="CapCut"> CapCut</div>
-                <div class="tool-badge"><img src="https://cdn.simpleicons.org/supabase/3ECF8E" alt="Supabase"> Supabase</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/vscode-icons:file-type-word.svg" alt="Word"> Word</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/vscode-icons:file-type-powerpoint.svg" alt="PowerPoint"> PowerPoint</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/vscode-icons:file-type-excel.svg" alt="Excel"> Excel</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:google-analytics.svg" alt="Analytics"> Google Analytics</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/simple-icons:googletrends.svg?color=white" alt="Trends"> Google Trends</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:visual-studio-code.svg" alt="VS Code"> VS Code</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:google-gemini.svg" alt="Gemini"> Gemini</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/skill-icons:wordpress.svg" alt="WordPress"> WordPress</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:hostinger-icon.svg" alt="Hostinger"> Hostinger</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:mailchimp-freddie.svg" alt="Mailchimp"> Mailchimp</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:openai-icon.svg" alt="ChatGPT"> ChatGPT</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/skill-icons:canva.svg" alt="Canva"> Canva</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/simple-icons:elevenlabs.svg?color=white" alt="ElevenLabs"> ElevenLabs</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:adobe-after-effects.svg" alt="After Effects"> After Effects</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:adobe-premiere.svg" alt="Premiere Pro"> Premiere Pro</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/simple-icons:adobecreativecloud.svg?color=white" alt="Media Encoder"> Media Encoder</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/logos:figma.svg" alt="Figma"> Figma</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/vscode-icons:file-type-photoshop.svg" alt="Photoshop"> Photoshop</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/skill-icons:davinciresolve.svg" alt="DaVinci Resolve"> DaVinci Resolve</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/mdi:github.svg?color=white" alt="GitHub"> GitHub</div>
+                <div class="tool-badge"><img src="https://api.iconify.design/simple-icons:capcut.svg?color=white" alt="CapCut"> CapCut</div>
             </div>
         </div>
     </section>
@@ -507,13 +587,19 @@
             <div class="section-header"><span class="section-tag">My Journey</span><h2>Professional Experience</h2></div>
             <div class="timeline">
                 <div class="timeline-item">
-                    <div class="timeline-dot"></div><span class="timeline-date">Sep 2025 - Present</span><h3 class="timeline-title">Internship at BRI</h3><p class="timeline-desc">Event Activation & Digital Marketing Support di Kantor Pusat BRI.</p>
+                    <div class="timeline-dot"></div><span class="timeline-date">Sep 2025 - Nov 2025</span>
+                    <h3 class="timeline-title">BRImo Event Activation at Bank Rakyat Indonesia</h3>
+                    <p class="timeline-desc">Merancang video animasi program dan mengelola inisiatif aktivasi booth event BRImo untuk meningkatkan monthly active users dan sales volume.</p>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-dot"></div><span class="timeline-date">2024 - 2025</span><h3 class="timeline-title">Career Development (IPB)</h3><p class="timeline-desc">Tenaga Kependidikan (Tendik) mengelola event Job Fair & Career Assessment.</p>
+                    <div class="timeline-dot"></div><span class="timeline-date">Des 2024 - Mei 2025</span>
+                    <h3 class="timeline-title">Founder / CMO at Classy Studio</h3>
+                    <p class="timeline-desc">Memimpin produksi multimedia, mengintegrasikan ekosistem digital marketing lintas platform, dan melampaui target pendapatan perusahaan bulanan.</p>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-dot"></div><span class="timeline-date">2023 - 2024</span><h3 class="timeline-title">National Filmmaking</h3><p class="timeline-desc">Memenangkan 3 Kejuaraan Nasional Videografi & Motion Graphic.</p>
+                    <div class="timeline-dot"></div><span class="timeline-date">Sep 2023 - Ags 2025</span>
+                    <h3 class="timeline-title">Motion Graphic Designer at CDA IPB</h3>
+                    <p class="timeline-desc">Memproduksi 150+ konten kreatif yang mencapai 1 juta+ penayangan, serta turut menyukseskan 4 acara berskala besar (Job Fair) dengan 15.000+ peserta.</p>
                 </div>
             </div>
         </div>
@@ -529,30 +615,30 @@
                 <div class="achieve-card">
                     <div class="achieve-icon"><i class="ri-trophy-fill"></i></div>
                     <div class="achieve-info">
-                        <h3>1st Winner National Filmmaking</h3>
-                        <p>Kejuaraan Nasional Pembuatan Film & Video Kreatif</p>
-                        <span class="achieve-year">2024</span>
+                        <h3>1st Winner LPS Creative Short Video</h3>
+                        <p>Juara 1 Kejuaraan Nasional Pembuatan Video Pendek Kreatif oleh LPS Indonesia.</p>
+                        <span class="achieve-year">2023</span>
                     </div>
                 </div>
                 <div class="achieve-card">
                     <div class="achieve-icon"><i class="ri-award-fill"></i></div>
                     <div class="achieve-info">
-                        <h3>2nd Winner National Filmmaking</h3>
-                        <p>Kejuaraan Nasional Tingkat Videografi & Editing</p>
+                        <h3>2nd Winner Indosat Short Video</h3>
+                        <p>Juara 2 Kompetisi Video Pendek Nasional yang diselenggarakan oleh Narasi x Indosat.</p>
                         <span class="achieve-year">2023</span>
                     </div>
                 </div>
                 <div class="achieve-card">
                     <div class="achieve-icon"><i class="ri-medal-fill"></i></div>
                     <div class="achieve-info">
-                        <h3>3rd Winner National Filmmaking</h3>
-                        <p>Kejuaraan Nasional Bidang Motion Graphic</p>
-                        <span class="achieve-year">2023</span>
+                        <h3>3rd Winner LIDM Kemendikbud</h3>
+                        <p>Juara 3 Kompetisi Lomba Inovasi Digital Mahasiswa (LIDM) Divisi Video Digital Pendidikan.</p>
+                        <span class="achieve-year">2024</span>
                     </div>
                 </div>
             </div>
-            <p style="text-align: center; margin-top: 30px; font-size: 0.9rem; color: var(--text-muted);">
-                *Selengkapnya dapat dilihat pada profil <a href="https://www.linkedin.com/in/muhammad-hanif-riza-mubarak/" target="_blank" style="color: var(--secondary); text-decoration: none; font-weight: 600;">LinkedIn saya</a>.
+            <p style="text-align: center; margin-top: 30px; font-size: 0.95rem; color: var(--text-muted);">
+                *Lihat sertifikasi dan detail pencapaian saya di <a href="https://www.linkedin.com/in/muhammad-hanif-riza-mubarak/" target="_blank" style="color: var(--secondary); text-decoration: none; font-weight: 700; transition: 0.3s;">Profil LinkedIn</a>.
             </p>
         </div>
     </section>
@@ -723,7 +809,7 @@
 
         // --- 5. TYPING EFFECT ---
         const textElement = document.querySelector('.type-text');
-        const words = ["Digital Marketer", "Web Developer", "Market Analyst"];
+        const words = ["Digital Marketer", "Brand Marketer", "Motion Graphic Designer"];
         let wordIndex = 0, charIndex = 0, isDeleting = false;
         function type() {
             const currentWord = words[wordIndex];
@@ -753,6 +839,60 @@
             if(entries[0].isIntersecting) { animateStats(); observerStats.disconnect(); }
         });
         if(statsSection) observerStats.observe(statsSection);
+
+        // --- 7. PDF PREVIEW & NOTIFICATION LOGIC ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = 'ri-checkbox-circle-fill';
+            if(type === 'info') icon = 'ri-information-fill';
+
+            toast.innerHTML = `<i class="${icon}"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+
+            // Animate in
+            setTimeout(() => toast.classList.add('show'), 10);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 400); // Wait for transition
+            }, 3000);
+        }
+
+        let currentPdfName = '';
+
+        function openPDF(filename, title) {
+            currentPdfName = title;
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+            const modalTitle = document.getElementById('pdfTitle');
+
+            modalTitle.innerText = title;
+            frame.src = filename; 
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // prevent background scrolling
+
+            showToast(`Berhasil membuka ${title}!`, 'success');
+        }
+
+        function closePDF() {
+            const modal = document.getElementById('pdfModal');
+            const frame = document.getElementById('pdfFrame');
+
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // allow background scrolling
+            
+            // clear src after animation to stop loading
+            setTimeout(() => {
+                frame.src = '';
+            }, 400);
+
+            showToast(`${currentPdfName} berhasil ditutup.`, 'info');
+        }
     </script>
 </body>
 </html>
