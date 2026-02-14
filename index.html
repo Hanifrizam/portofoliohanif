@@ -37,7 +37,6 @@
             line-height: 1.6;
             overflow-x: hidden;
             padding-bottom: 80px;
-            overflow: hidden; /* Prevent scroll until welcome popup is closed */
         }
         .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding); }
 
@@ -66,13 +65,11 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(5, 5, 5, 0.95);
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            z-index: 99998; /* Just below loader, above everything else */
+            z-index: 99998; 
             display: flex; align-items: center; justify-content: center;
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
         }
-        
-        /* Modal Content */
         .welcome-content {
             text-align: center; padding: 40px 30px; background: var(--card-bg);
             border: var(--glass-border); border-radius: var(--radius-lg);
@@ -85,7 +82,6 @@
             0% { opacity: 0; transform: scale(0.8) translateY(30px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-
         .welcome-avatar {
             width: 90px; height: 90px; margin: 0 auto 20px;
             border-radius: 50%; border: 3px solid transparent;
@@ -118,8 +114,7 @@
             position: absolute; top: 50%; left: 50%; width: 2px; height: 20px;
             background: var(--secondary); box-shadow: 0 0 15px var(--secondary), 0 0 30px var(--primary);
             opacity: 0; animation: warpSpeed linear infinite;
-            transform-origin: center top;
-            border-radius: 50px;
+            transform-origin: center top; border-radius: 50px;
         }
         @keyframes warpSpeed {
             0% { transform: rotate(var(--angle)) translateY(50px) scaleY(1); opacity: 0; }
@@ -133,7 +128,6 @@
             background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text;
             -webkit-text-fill-color: transparent; display: inline-block;
         }
-        
         .type-cursor {
             display: inline-block; width: 3px; background-color: var(--secondary);
             animation: blink 1s infinite; vertical-align: middle; height: 1em;
@@ -204,14 +198,11 @@
             transition: color 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .mobile-nav-item i { font-size: 1.4rem; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        
         .mobile-nav-item.active { color: white; transform: translateY(-3px); }
         .mobile-nav-item.active i {
             background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text;
-            -webkit-text-fill-color: transparent; transform: scale(1.15);
-            filter: drop-shadow(0 4px 6px rgba(123, 97, 255, 0.4));
+            -webkit-text-fill-color: transparent; transform: scale(1.15); filter: drop-shadow(0 4px 6px rgba(123, 97, 255, 0.4));
         }
-
         @media (max-width: 960px) { .navbar-desktop { display: none; } .mobile-nav { display: flex; } }
 
         /* --- 5. BUTTONS & FLOATING WA --- */
@@ -265,7 +256,42 @@
         .skill-name { font-weight: 700; color: white; margin-bottom: 4px; }
         .skill-sub { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* --- 8. TIMELINE --- */
+        /* --- 8. SOFTWARE & TOOLS (MARQUEE) --- */
+        .tools-section {
+            padding: 60px 0; background: rgba(255, 255, 255, 0.02);
+            border-bottom: var(--glass-border); overflow: hidden;
+        }
+        .tools-header { text-align: center; margin-bottom: 40px; }
+        .marquee-container {
+            display: flex; width: 100vw; max-width: 100%; position: relative;
+            margin-left: calc(-50vw + 50%); right: 0;
+        }
+        .marquee-container::before, .marquee-container::after {
+            content: ''; position: absolute; top: 0; width: 80px; height: 100%; z-index: 2; pointer-events: none;
+        }
+        .marquee-container::before { left: 0; background: linear-gradient(to right, var(--bg-main), transparent); }
+        .marquee-container::after { right: 0; background: linear-gradient(to left, var(--bg-main), transparent); }
+
+        .marquee-content {
+            display: flex; gap: 20px; padding-right: 20px;
+            animation: scrollLeft 40s linear infinite; width: max-content;
+        }
+        .marquee-container:hover .marquee-content { animation-play-state: paused; }
+
+        .tool-badge {
+            display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px;
+            background: var(--card-bg); border: var(--glass-border); border-radius: 50px;
+            color: white; font-weight: 600; font-size: 0.95rem; transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); cursor: default; white-space: nowrap;
+        }
+        .tool-badge img { width: 24px; height: 24px; object-fit: contain; }
+        .tool-badge:hover {
+            border-color: var(--secondary); box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+            transform: translateY(-5px); color: var(--secondary);
+        }
+        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- 9. TIMELINE --- */
         .timeline { position: relative; max-width: 800px; margin: 0 auto; padding-left: 30px; border-left: 2px solid rgba(255,255,255,0.1); }
         .timeline-item { position: relative; margin-bottom: 40px; }
         .timeline-dot { position: absolute; left: -39px; top: 5px; width: 16px; height: 16px; background: var(--bg-main); border: 2px solid var(--primary); border-radius: 50%; box-shadow: 0 0 10px rgba(123, 97, 255, 0.5); }
@@ -273,7 +299,27 @@
         .timeline-title { font-size: 1.2rem; font-weight: 700; color: white; margin-bottom: 5px; }
         .timeline-desc { color: var(--text-muted); font-size: 0.95rem; }
 
-        /* --- 9. PORTFOLIO PREVIEW --- */
+        /* --- 10. ACHIEVEMENTS --- */
+        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .achieve-card {
+            background: var(--card-bg); border: var(--glass-border); border-radius: var(--radius-lg);
+            padding: 30px 24px; display: flex; gap: 20px; transition: 0.4s; align-items: flex-start;
+        }
+        .achieve-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .achieve-icon {
+            width: 56px; height: 56px; border-radius: 50%; background: rgba(123, 97, 255, 0.1);
+            color: var(--primary); display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; flex-shrink: 0; transition: 0.4s;
+        }
+        .achieve-card:hover .achieve-icon { background: var(--accent-gradient); color: white; transform: rotate(10deg); }
+        .achieve-info h3 { font-size: 1.15rem; color: white; margin-bottom: 8px; font-weight: 700; line-height: 1.3;}
+        .achieve-info p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px; }
+        .achieve-year {
+            font-size: 0.75rem; font-weight: 700; color: var(--secondary); background: rgba(0, 240, 255, 0.1);
+            padding: 4px 12px; border-radius: 50px; border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        /* --- 11. PORTFOLIO PREVIEW --- */
         .section-header { text-align: center; margin-bottom: 60px; }
         .section-tag { color: var(--secondary); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; margin-bottom: 12px; display: block; }
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -302,7 +348,6 @@
     </div>
 
     <div id="welcomeOverlay" class="welcome-overlay">
-        
         <div class="welcome-content" id="welcomeContent">
             <div class="welcome-avatar">
                 <img src="hanif formal png.png" alt="Hanif Riza">
@@ -322,7 +367,6 @@
 
         <div class="lightwarp-container" id="lightwarpContainer"></div>
     </div>
-
 
     <nav class="navbar-desktop">
         <div class="container nav-container">
@@ -403,7 +447,62 @@
         </div>
     </section>
 
-    <section id="experience" style="padding: 80px 0; background: rgba(255,255,255,0.01);">
+    <section id="tools" class="tools-section">
+        <div class="container tools-header">
+            <span class="section-tag">My Arsenal</span>
+            <h2>Software & Tools</h2>
+        </div>
+        
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/microsoftword/2B579A" alt="Word"> Word</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/microsoftpowerpoint/B7472A" alt="PowerPoint"> PowerPoint</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/microsoftexcel/217346" alt="Excel"> Excel</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/googleanalytics/E37400" alt="Analytics"> Google Analytics</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/googletrends/4285F4" alt="Trends"> Google Trends</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/visualstudiocode/007ACC" alt="VS Code"> VS Code</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/googlegemini/8E75B2" alt="Gemini"> Gemini</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/wordpress/21759B" alt="WordPress"> WordPress</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/hostinger/673DE6" alt="Hostinger"> Hostinger</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/mailchimp/FFE01B" alt="Mailchimp"> Mailchimp</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/openai/412991" alt="ChatGPT"> ChatGPT</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/canva/00C4CC" alt="Canva"> Canva</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/elevenlabs/FFFFFF" alt="ElevenLabs"> ElevenLabs</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/adobeaftereffects/9999FF" alt="After Effects"> After Effects</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/adobepremierepro/9999FF" alt="Premiere Pro"> Premiere Pro</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/adobephotoshop/31A8FF" alt="Photoshop"> Photoshop</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/davinciresolve/CA1128" alt="DaVinci Resolve"> DaVinci Resolve</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma"> Figma</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/github/FFFFFF" alt="GitHub"> GitHub</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/capcut/FFFFFF" alt="CapCut"> CapCut</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/supabase/3ECF8E" alt="Supabase"> Supabase</div>
+                
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/microsoftword/2B579A" alt="Word"> Word</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/microsoftpowerpoint/B7472A" alt="PowerPoint"> PowerPoint</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/microsoftexcel/217346" alt="Excel"> Excel</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/googleanalytics/E37400" alt="Analytics"> Google Analytics</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/googletrends/4285F4" alt="Trends"> Google Trends</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/visualstudiocode/007ACC" alt="VS Code"> VS Code</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/googlegemini/8E75B2" alt="Gemini"> Gemini</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/wordpress/21759B" alt="WordPress"> WordPress</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/hostinger/673DE6" alt="Hostinger"> Hostinger</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/mailchimp/FFE01B" alt="Mailchimp"> Mailchimp</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/openai/412991" alt="ChatGPT"> ChatGPT</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/canva/00C4CC" alt="Canva"> Canva</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/elevenlabs/FFFFFF" alt="ElevenLabs"> ElevenLabs</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/adobeaftereffects/9999FF" alt="After Effects"> After Effects</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/adobepremierepro/9999FF" alt="Premiere Pro"> Premiere Pro</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/adobephotoshop/31A8FF" alt="Photoshop"> Photoshop</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/davinciresolve/CA1128" alt="DaVinci Resolve"> DaVinci Resolve</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma"> Figma</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/github/FFFFFF" alt="GitHub"> GitHub</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/capcut/FFFFFF" alt="CapCut"> CapCut</div>
+                <div class="tool-badge"><img src="https://cdn.simpleicons.org/supabase/3ECF8E" alt="Supabase"> Supabase</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" style="padding: 80px 0;">
         <div class="container">
             <div class="section-header"><span class="section-tag">My Journey</span><h2>Professional Experience</h2></div>
             <div class="timeline">
@@ -420,7 +519,45 @@
         </div>
     </section>
 
-    <section style="padding: 80px 0;">
+    <section id="achievements" style="padding: 80px 0; background: rgba(255,255,255,0.01); border-top: var(--glass-border);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Milestones</span>
+                <h2>Honors & Awards</h2>
+            </div>
+            <div class="achievements-grid">
+                <div class="achieve-card">
+                    <div class="achieve-icon"><i class="ri-trophy-fill"></i></div>
+                    <div class="achieve-info">
+                        <h3>1st Winner National Filmmaking</h3>
+                        <p>Kejuaraan Nasional Pembuatan Film & Video Kreatif</p>
+                        <span class="achieve-year">2024</span>
+                    </div>
+                </div>
+                <div class="achieve-card">
+                    <div class="achieve-icon"><i class="ri-award-fill"></i></div>
+                    <div class="achieve-info">
+                        <h3>2nd Winner National Filmmaking</h3>
+                        <p>Kejuaraan Nasional Tingkat Videografi & Editing</p>
+                        <span class="achieve-year">2023</span>
+                    </div>
+                </div>
+                <div class="achieve-card">
+                    <div class="achieve-icon"><i class="ri-medal-fill"></i></div>
+                    <div class="achieve-info">
+                        <h3>3rd Winner National Filmmaking</h3>
+                        <p>Kejuaraan Nasional Bidang Motion Graphic</p>
+                        <span class="achieve-year">2023</span>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 30px; font-size: 0.9rem; color: var(--text-muted);">
+                *Selengkapnya dapat dilihat pada profil <a href="https://www.linkedin.com/in/muhammad-hanif-riza-mubarak/" target="_blank" style="color: var(--secondary); text-decoration: none; font-weight: 600;">LinkedIn saya</a>.
+            </p>
+        </div>
+    </section>
+
+    <section style="padding: 80px 0; border-top: var(--glass-border);">
         <div class="container">
             <div class="section-header"><span class="section-tag">Featured Work</span><h2>Selected Projects</h2></div>
             <div class="portfolio-grid">
@@ -457,10 +594,20 @@
         // --- 1. LOADING SCREEN & WELCOME POPUP LOGIC ---
         window.addEventListener('load', () => {
             const loader = document.getElementById('loader');
-            // Menghilangkan loader
-            setTimeout(() => {
+            const overlay = document.getElementById('welcomeOverlay');
+            
+            // Mengecek apakah user sudah mendapat salam sebelumnya di sesi browser ini
+            if (sessionStorage.getItem('welcomed') === 'true') {
                 loader.classList.add('hidden');
-            }, 500); 
+                overlay.style.display = 'none'; // Langsung hilangkan overlay
+                document.body.style.overflow = 'auto'; // Pastikan bisa scroll
+            } else {
+                // Kunci layar agar user tidak bisa scroll sebelum klik popup
+                document.body.style.overflow = 'hidden'; 
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                }, 500); 
+            }
         });
 
         // Animasi "Jelajahi Portofolio"
@@ -469,6 +616,9 @@
             const content = document.getElementById('welcomeContent');
             const text = document.getElementById('welcomeTransitionText');
             const warpContainer = document.getElementById('lightwarpContainer');
+
+            // Set state bahwa user sudah disambut (simpan di memori browser)
+            sessionStorage.setItem('welcomed', 'true');
 
             // 1. Fade out the card
             content.style.opacity = '0';
@@ -505,19 +655,13 @@
         // Generator garis-garis Warp Speed
         function createLightwarpLines() {
             const warp = document.getElementById('lightwarpContainer');
-            // Membuat 60 garis warp secara dinamis
             for(let i = 0; i < 60; i++) {
                 let streak = document.createElement('div');
                 streak.className = 'streak';
-                
-                // Set rotasi arah acak (360 derajat)
                 let angle = Math.random() * 360;
                 streak.style.setProperty('--angle', angle + 'deg');
-                
-                // Delay dan durasi acak agar terlihat natural
                 streak.style.animationDelay = `${Math.random() * 0.5}s`;
                 streak.style.animationDuration = `${Math.random() * 0.4 + 0.4}s`;
-                
                 warp.appendChild(streak);
             }
         }
