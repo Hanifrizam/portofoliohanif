@@ -37,6 +37,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             padding-bottom: 80px;
+            overflow: hidden; /* Prevent scroll until welcome popup is closed */
         }
         .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding); }
 
@@ -60,6 +61,72 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        /* --- WELCOME POP-UP OVERLAY --- */
+        .welcome-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            z-index: 99998; /* Just below loader, above everything else */
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+        
+        /* Modal Content */
+        .welcome-content {
+            text-align: center; padding: 40px 30px; background: var(--card-bg);
+            border: var(--glass-border); border-radius: var(--radius-lg);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.05);
+            max-width: 90%; width: 420px; position: relative; z-index: 2;
+            transition: all 0.5s ease; transform: scale(1);
+            animation: welcomePop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s both;
+        }
+        @keyframes welcomePop {
+            0% { opacity: 0; transform: scale(0.8) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .welcome-avatar {
+            width: 90px; height: 90px; margin: 0 auto 20px;
+            border-radius: 50%; border: 3px solid transparent;
+            background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box, var(--accent-gradient) border-box;
+            padding: 4px; overflow: hidden; box-shadow: 0 0 25px rgba(123, 97, 255, 0.3);
+        }
+        .welcome-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .welcome-title { font-size: 1.6rem; margin-bottom: 12px; color: white; font-family: 'Space Grotesk', sans-serif; font-weight: 700;}
+        .welcome-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 32px; line-height: 1.5; }
+        .welcome-buttons { display: flex; flex-direction: column; gap: 14px; }
+        .welcome-buttons .btn { width: 100%; justify-content: center; }
+        
+        /* Fade Text Transition */
+        .welcome-transition-text {
+            position: absolute; z-index: 3; font-size: clamp(1.8rem, 5vw, 3rem);
+            font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+            text-align: center; color: white; opacity: 0; transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none; padding: 0 20px;
+            background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(123, 97, 255, 0.4);
+        }
+
+        /* Lightwarp Animation System */
+        .lightwarp-container { 
+            position: absolute; inset: 0; z-index: 1; opacity: 0; 
+            transition: opacity 0.5s ease; perspective: 1000px; overflow: hidden;
+        }
+        .streak {
+            position: absolute; top: 50%; left: 50%; width: 2px; height: 20px;
+            background: var(--secondary); box-shadow: 0 0 15px var(--secondary), 0 0 30px var(--primary);
+            opacity: 0; animation: warpSpeed linear infinite;
+            transform-origin: center top;
+            border-radius: 50px;
+        }
+        @keyframes warpSpeed {
+            0% { transform: rotate(var(--angle)) translateY(50px) scaleY(1); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: rotate(var(--angle)) translateY(150vh) scaleY(20); opacity: 0; }
+        }
+
         /* --- 3. TYPOGRAPHY & UTILS --- */
         h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.03em; }
         .gradient-text {
@@ -74,7 +141,6 @@
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         /* --- 4. NAVIGATION --- */
-        /* Desktop Nav & Animations */
         .navbar-desktop {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             padding: 24px 0; background: rgba(5, 5, 5, 0.7);
@@ -109,7 +175,6 @@
         }
         .btn-hire:hover { background: var(--secondary); transform: scale(1.05) translateY(-2px); box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3); }
 
-        /* Mobile Nav & Animations */
         .mobile-nav {
             display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             width: 90%; max-width: 400px; background: rgba(20, 20, 20, 0.8);
@@ -122,7 +187,6 @@
         }
         .mobile-nav.hide-on-scroll { transform: translate(-50%, 150%); opacity: 0; pointer-events: none; }
         
-        /* Sliding Indicator for Mobile */
         .nav-indicator {
             position: absolute; top: 8px; left: 16px;
             height: calc(100% - 16px); width: calc((100% - 32px) / 3);
@@ -154,7 +218,8 @@
         .btn {
             display: inline-flex; align-items: center; gap: 8px;
             padding: 14px 32px; border-radius: 50px; font-weight: 700;
-            text-decoration: none; transition: all 0.3s ease;
+            text-decoration: none; transition: all 0.3s ease; cursor: pointer;
+            border: none; font-family: inherit; font-size: 1rem;
         }
         .btn-primary {
             background: var(--accent-gradient); color: white;
@@ -167,7 +232,7 @@
         .wa-float {
             position: fixed; bottom: 100px; right: 20px; background-color: #25d366; color: white; width: 50px; height: 50px;
             border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            z-index: 9998; text-decoration: none; transition: 0.3s;
+            z-index: 9990; text-decoration: none; transition: 0.3s;
         }
         .wa-float:hover { transform: scale(1.1); background-color: #20ba5a; }
         @media (min-width: 961px) { .wa-float { bottom: 40px; right: 40px; width: 60px; height: 60px; font-size: 32px; } }
@@ -235,6 +300,29 @@
     <div class="page-loader" id="loader">
         <div class="spinner"></div>
     </div>
+
+    <div id="welcomeOverlay" class="welcome-overlay">
+        
+        <div class="welcome-content" id="welcomeContent">
+            <div class="welcome-avatar">
+                <img src="hanif formal png.png" alt="Hanif Riza">
+            </div>
+            <h2 class="welcome-title">Hai! Welcome to my space ✨</h2>
+            <p class="welcome-desc">Siap melihat bagaimana data, kode, dan kreativitas bersatu untuk menciptakan dampak digital yang nyata?</p>
+            
+            <div class="welcome-buttons">
+                <button class="btn btn-primary" onclick="triggerLightwarp()">Jelajahi Portofolio <i class="ri-rocket-2-line"></i></button>
+                <a href="https://wa.me/6281234567890" target="_blank" class="btn btn-outline">Kontak Langsung <i class="ri-whatsapp-line"></i></a>
+            </div>
+        </div>
+
+        <div class="welcome-transition-text" id="welcomeTransitionText">
+            Selamat menjelajahi portofolio saya! 🚀
+        </div>
+
+        <div class="lightwarp-container" id="lightwarpContainer"></div>
+    </div>
+
 
     <nav class="navbar-desktop">
         <div class="container nav-container">
@@ -366,37 +454,98 @@
     </footer>
 
     <script>
-        // --- 1. LOADING SCREEN LOGIC ---
+        // --- 1. LOADING SCREEN & WELCOME POPUP LOGIC ---
         window.addEventListener('load', () => {
             const loader = document.getElementById('loader');
-            setTimeout(() => loader.classList.add('hidden'), 500); 
+            // Menghilangkan loader
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 500); 
         });
 
+        // Animasi "Jelajahi Portofolio"
+        function triggerLightwarp() {
+            const overlay = document.getElementById('welcomeOverlay');
+            const content = document.getElementById('welcomeContent');
+            const text = document.getElementById('welcomeTransitionText');
+            const warpContainer = document.getElementById('lightwarpContainer');
+
+            // 1. Fade out the card
+            content.style.opacity = '0';
+            content.style.transform = 'scale(0.8)';
+
+            setTimeout(() => {
+                content.style.display = 'none'; // Sembunyikan card sepenuhnya
+                
+                // 2. Munculkan teks selamat datang
+                text.style.display = 'block';
+                setTimeout(() => {
+                    text.style.opacity = '1';
+                    text.style.transform = 'scale(1)';
+                }, 50);
+
+                // 3. Bangkitkan efek Lightwarp!
+                warpContainer.style.opacity = '1';
+                createLightwarpLines();
+
+                // 4. Setelah ~2.5 detik, fade out semua overlay ke dalam website
+                setTimeout(() => {
+                    overlay.style.opacity = '0';
+                    overlay.style.backdropFilter = 'blur(0px)'; // Hilangkan blur
+                    
+                    setTimeout(() => {
+                        overlay.style.display = 'none'; // Buang dari tampilan
+                        document.body.style.overflow = 'auto'; // Kembalikan scroll ke normal
+                    }, 800); // Waktu yang dibutuhkan untuk fade out
+                }, 2500); // Durasi show off animasi
+
+            }, 400); // Waktu tunggu sesuai animasi transisi card
+        }
+
+        // Generator garis-garis Warp Speed
+        function createLightwarpLines() {
+            const warp = document.getElementById('lightwarpContainer');
+            // Membuat 60 garis warp secara dinamis
+            for(let i = 0; i < 60; i++) {
+                let streak = document.createElement('div');
+                streak.className = 'streak';
+                
+                // Set rotasi arah acak (360 derajat)
+                let angle = Math.random() * 360;
+                streak.style.setProperty('--angle', angle + 'deg');
+                
+                // Delay dan durasi acak agar terlihat natural
+                streak.style.animationDelay = `${Math.random() * 0.5}s`;
+                streak.style.animationDuration = `${Math.random() * 0.4 + 0.4}s`;
+                
+                warp.appendChild(streak);
+            }
+        }
+
+        // --- 2. PAGE TRANSITION LOGIC ---
         const transitionLinks = document.querySelectorAll('.transition-link');
         transitionLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                // Biarkan link yang memiliki hash (seperti #market) berjalan normal di halaman yang sama
                 if(this.getAttribute('href').startsWith('#')) return; 
-                
                 e.preventDefault(); 
                 const target = this.getAttribute('href');
                 const loader = document.getElementById('loader');
+                
+                // Munculkan loading normal saat pindah halaman
                 loader.classList.remove('hidden');
                 setTimeout(() => window.location.href = target, 500); 
             });
         });
 
-        // --- 2. SCROLL ANIMATIONS (PC & MOBILE) ---
+        // --- 3. SCROLL ANIMATIONS (PC & MOBILE) ---
         const desktopNav = document.querySelector('.navbar-desktop');
         const mobileNav = document.getElementById('mobileNav');
         let lastScrollY = window.scrollY;
 
         window.addEventListener('scroll', () => {
-            // PC: Shrink effect
             if (window.scrollY > 50) desktopNav.classList.add('scrolled');
             else desktopNav.classList.remove('scrolled');
 
-            // Mobile: Hide on scroll down, show on scroll up
             if (window.scrollY > lastScrollY && window.scrollY > 150) {
                 mobileNav.classList.add('hide-on-scroll');
             } else {
@@ -405,15 +554,13 @@
             lastScrollY = window.scrollY;
         });
 
-        // --- 3. MOBILE NAV INDICATOR LOGIC ---
+        // --- 4. MOBILE NAV INDICATOR LOGIC ---
         const mobileItems = document.querySelectorAll('.mobile-nav-item');
         const indicator = document.getElementById('navIndicator');
 
         function moveIndicator(item) {
             if (!item) return;
-            // Menghitung posisi index (0, 1, atau 2)
             const index = Array.from(mobileItems).indexOf(item);
-            // Menggeser pill indikator sebesar 100% dari lebarnya dikali urutan index
             indicator.style.transform = `translateX(${index * 100}%)`;
         }
 
@@ -425,13 +572,12 @@
             });
         });
 
-        // Set indikator ke menu aktif saat halaman dimuat
         window.addEventListener('DOMContentLoaded', () => {
             const initialActive = document.querySelector('.mobile-nav-item.active');
             moveIndicator(initialActive);
         });
 
-        // --- 4. TYPING EFFECT ---
+        // --- 5. TYPING EFFECT ---
         const textElement = document.querySelector('.type-text');
         const words = ["Digital Marketer", "Web Developer", "Market Analyst"];
         let wordIndex = 0, charIndex = 0, isDeleting = false;
@@ -446,7 +592,7 @@
         }
         document.addEventListener('DOMContentLoaded', type);
 
-        // --- 5. STATS COUNTER ANIMATION ---
+        // --- 6. STATS COUNTER ANIMATION ---
         const counters = document.querySelectorAll('.stat-num');
         const animateStats = () => {
             counters.forEach(counter => {
