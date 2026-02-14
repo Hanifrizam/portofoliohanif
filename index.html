@@ -3,291 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Hanif Riza | Portfolio Detail</title>
+    <title>Hanif Riza | Creative Portfolio</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
     <style>
-        /* --- 1. DESIGN TOKENS --- */
         :root {
             --bg-main: #050505;
             --bg-secondary: #0F0F0F;
             --card-bg: #141414;
-            
-            /* Gradient Accent */
             --primary: #7B61FF;
             --secondary: #00F0FF;
             --accent-gradient: linear-gradient(135deg, #7B61FF 0%, #00F0FF 100%);
-            
             --text-main: #FFFFFF;
-            --text-muted: #9CA3AF;
-            
+            --text-muted: #888888;
             --container-padding: 24px;
-            --radius-lg: 20px;
-            --radius-md: 12px;
-            
-            --glass-bg: rgba(20, 20, 20, 0.7);
+            --radius-lg: 24px;
+            --radius-sm: 12px;
             --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-            --blur: blur(12px);
         }
 
-        /* --- 2. RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        html { 
-            scroll-behavior: smooth; 
-            /* Penting: Agar saat klik menu, judul tidak tertutup header sticky */
-            scroll-padding-top: 140px; 
-        }
-
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            /* Extra padding bawah agar konten tidak tertutup menu HP */
-            padding-bottom: 100px; 
+            font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-main);
+            color: var(--text-main); line-height: 1.6; overflow-x: hidden; padding-bottom: 80px;
         }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding); }
 
-        .container {
-            width: 100%; max-width: 1200px; margin: 0 auto; 
-            padding: 0 var(--container-padding);
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.03em; }
+        .gradient-text {
+            background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; display: inline-block;
         }
+        
+        .type-cursor {
+            display: inline-block; width: 3px; background-color: var(--secondary);
+            animation: blink 1s infinite; vertical-align: middle; height: 1em;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
-
-        /* --- 3. NAVIGATION --- */
         .navbar-desktop {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            padding: 16px 0; background: rgba(5, 5, 5, 0.85);
-            backdrop-filter: var(--blur); border-bottom: var(--glass-border);
+            padding: 20px 0; background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px); border-bottom: var(--glass-border);
         }
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { 
-            font-size: 1.25rem; font-weight: 700; color: white; text-decoration: none; 
-            font-family: 'Space Grotesk', sans-serif; display: flex; align-items: center; gap: 8px;
-        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: white; text-decoration: none; font-family: 'Space Grotesk', sans-serif;}
+        .logo span { color: var(--primary); }
         .nav-links { display: flex; gap: 32px; }
-        .nav-link { font-weight: 500; color: var(--text-muted); text-decoration: none; transition: 0.3s; font-size: 0.9rem; }
+        .nav-link { font-weight: 500; color: var(--text-muted); text-decoration: none; transition: 0.3s; }
         .nav-link:hover, .nav-link.active { color: white; }
-        
-        .btn-contact { 
+        .btn-hire { 
             background: white; color: black; padding: 10px 24px; border-radius: 50px; 
-            text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s;
+            text-decoration: none; font-weight: 700; transition: 0.3s;
         }
-        .btn-contact:hover { background: var(--secondary); transform: scale(1.05); }
+        .btn-hire:hover { background: var(--secondary); transform: scale(1.05); }
 
-        /* Mobile Nav */
         .mobile-nav {
             display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 350px; background: rgba(30, 30, 30, 0.9);
-            backdrop-filter: blur(20px); padding: 10px 25px; border-radius: 50px;
-            z-index: 9999; border: 1px solid rgba(255,255,255,0.15); justify-content: space-between;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 90%; max-width: 400px; background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(15px); padding: 12px 30px; border-radius: 50px;
+            z-index: 9999; border: var(--glass-border); justify-content: space-between;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
-        .mobile-nav-item { 
-            display: flex; flex-direction: column; align-items: center; text-decoration: none; 
-            color: var(--text-muted); font-size: 0.7rem; font-weight: 500; gap: 2px;
+        .mobile-nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-muted); font-size: 0.7rem; font-weight: 600; gap: 4px;}
+        .mobile-nav-item i { font-size: 1.4rem; }
+        .mobile-nav-item.active i {
+            background: var(--accent-gradient); -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .mobile-nav-item i { font-size: 1.3rem; margin-bottom: 2px; }
-        .mobile-nav-item.active { color: white; }
-        .mobile-nav-item.active i { color: var(--secondary); }
+        .mobile-nav-item.active span { color: white; }
+
+        @media (max-width: 960px) { .navbar-desktop { display: none; } .mobile-nav { display: flex; } }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 32px; border-radius: 50px; font-weight: 700;
+            text-decoration: none; transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: var(--accent-gradient); color: white;
+            box-shadow: 0 0 20px rgba(123, 97, 255, 0.4); border: 1px solid transparent;
+        }
+        .btn-primary:hover { box-shadow: 0 0 40px rgba(123, 97, 255, 0.6); transform: translateY(-2px); }
+        .btn-outline { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.3); }
+        .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.05); }
+
+        .wa-float {
+            position: fixed; bottom: 100px; right: 20px;
+            background-color: #25d366; color: white; width: 50px; height: 50px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 28px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            z-index: 9998; text-decoration: none; transition: 0.3s;
+        }
+        .wa-float:hover { transform: scale(1.1); background-color: #20ba5a; }
+        @media (min-width: 961px) { .wa-float { bottom: 40px; right: 40px; width: 60px; height: 60px; font-size: 32px; } }
+
+        .hero { padding-top: 140px; min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+        .glow { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: var(--primary); filter: blur(180px); opacity: 0.15; z-index: -1; }
+        .glow-1 { top: -20%; right: -10%; background: #7B61FF; }
+        .glow-2 { bottom: -20%; left: -10%; background: #00F0FF; }
+
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center; }
+        .hero-content h1 { font-size: clamp(3rem, 6vw, 5rem); line-height: 1.1; font-weight: 700; margin-bottom: 24px; }
+        .hero-content p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 32px; max-width: 500px; }
+        .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+        .hero-img-wrap { position: relative; display: flex; justify-content: center; }
+        .hero-img {
+            width: 100%; max-width: 400px; border-radius: var(--radius-lg);
+            mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+            object-fit: cover;
+        }
+
+        .stats-section { padding: 40px 0; border-bottom: var(--glass-border); border-top: var(--glass-border); background: rgba(255,255,255,0.02); }
+        .stats-grid { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; }
+        .stat-item { text-align: center; }
+        .stat-num { font-size: 2.5rem; font-weight: 700; font-family: 'Space Grotesk', sans-serif; margin-bottom: 5px; }
+        .stat-desc { color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-top: 40px; }
+        .skill-card { background: var(--card-bg); border: var(--glass-border); border-radius: var(--radius-sm); padding: 24px; text-align: center; transition: 0.3s; }
+        .skill-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .skill-icon { font-size: 2rem; margin-bottom: 12px; }
+        .skill-name { font-weight: 700; color: white; margin-bottom: 4px; }
+        .skill-sub { font-size: 0.8rem; color: var(--text-muted); }
+
+        .timeline { position: relative; max-width: 800px; margin: 0 auto; padding-left: 30px; border-left: 2px solid rgba(255,255,255,0.1); }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-dot {
+            position: absolute; left: -39px; top: 5px; width: 16px; height: 16px;
+            background: var(--bg-main); border: 2px solid var(--primary); border-radius: 50%;
+            box-shadow: 0 0 10px rgba(123, 97, 255, 0.5);
+        }
+        .timeline-date { color: var(--secondary); font-size: 0.85rem; font-weight: 700; margin-bottom: 5px; display: block; }
+        .timeline-title { font-size: 1.2rem; font-weight: 700; color: white; margin-bottom: 5px; }
+        .timeline-desc { color: var(--text-muted); font-size: 0.95rem; }
+
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-tag { color: var(--secondary); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; font-weight: 700; margin-bottom: 12px; display: block; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .port-card { background: var(--card-bg); border-radius: var(--radius-lg); overflow: hidden; border: var(--glass-border); transition: 0.4s; display: block; text-decoration: none; }
+        .port-card:hover { transform: translateY(-10px); border-color: var(--secondary); }
+        .port-img { width: 100%; height: 240px; object-fit: cover; opacity: 0.8; transition: 0.4s; }
+        .port-card:hover .port-img { opacity: 1; transform: scale(1.05); }
+        .port-body { padding: 24px; }
+        .port-cat { color: var(--primary); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .port-title { color: white; font-size: 1.4rem; margin: 8px 0; font-weight: 700; }
+        .port-desc { color: var(--text-muted); font-size: 0.9rem; }
 
         @media (max-width: 960px) {
-            .navbar-desktop { display: none; }
-            .mobile-nav { display: flex; }
-            /* Adjust scroll padding for mobile */
-            html { scroll-padding-top: 100px; } 
-        }
-
-        /* --- 4. HEADER & FILTER --- */
-        .page-header {
-            padding-top: 120px; padding-bottom: 40px; text-align: center;
-            background: radial-gradient(circle at top center, rgba(123, 97, 255, 0.15) 0%, transparent 60%);
-        }
-        .page-title { 
-            font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 12px; line-height: 1.1;
-        }
-        .page-desc { 
-            color: var(--text-muted); max-width: 500px; margin: 0 auto; font-size: 1rem; padding: 0 20px;
-        }
-
-        .filter-bar {
-            position: sticky; top: 73px; z-index: 900;
-            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px);
-            padding: 12px 0; border-bottom: var(--glass-border); border-top: var(--glass-border);
-            margin-bottom: 40px; 
-            /* Hide scrollbar */
-            overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none;
-        }
-        .filter-bar::-webkit-scrollbar { display: none; }
-
-        @media (max-width: 960px) { 
-            .filter-bar { top: 0; padding: 15px 0; } 
-            .page-header { padding-top: 60px; padding-bottom: 30px; }
-        }
-
-        .filter-list {
-            display: flex; gap: 10px; justify-content: center; list-style: none;
-            min-width: max-content; padding: 0 20px;
-        }
-        .filter-btn {
-            padding: 8px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.85rem;
-            transition: 0.3s; white-space: nowrap; background: rgba(255,255,255,0.03);
-        }
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary); color: white; border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(123, 97, 255, 0.3);
-        }
-
-        /* --- 5. PORTFOLIO CARDS (Grid System) --- */
-        .segment { padding: 20px 0; margin-bottom: 40px; }
-        .segment-title { 
-            font-size: 1.8rem; margin-bottom: 30px; display: flex; align-items: center; gap: 12px;
-            color: white; border-left: 4px solid var(--secondary); padding-left: 15px;
-        }
-
-        .grid-std { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; 
-        }
-        
-        .port-card {
-            background: var(--card-bg); border-radius: var(--radius-lg);
-            overflow: hidden; border: var(--glass-border); transition: 0.4s;
-            position: relative; display: flex; flex-direction: column; height: 100%;
-        }
-        .port-card:hover { 
-            transform: translateY(-5px); border-color: var(--primary); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
-        }
-        
-        .card-img-wrap { 
-            width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; cursor: pointer; 
-        }
-        .card-img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
-        .port-card:hover .card-img { transform: scale(1.05); }
-        .card-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: 0.3s;
-        }
-        .port-card:hover .card-overlay { opacity: 1; }
-        .zoom-icon { 
-            font-size: 1.5rem; color: white; background: rgba(255,255,255,0.2); 
-            padding: 12px; border-radius: 50%; backdrop-filter: blur(5px); 
-        }
-
-        .card-body { padding: 24px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-tag { 
-            font-size: 0.7rem; color: var(--secondary); font-weight: 700; 
-            text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px;
-        }
-        .card-h { font-size: 1.25rem; margin-bottom: 10px; font-weight: 700; line-height: 1.3; }
-        .card-p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
-        
-        .stat-badge {
-            display: inline-flex; align-items: center; gap: 6px; 
-            background: rgba(123, 97, 255, 0.1); color: var(--primary);
-            padding: 6px 12px; border-radius: 8px; font-weight: 600; font-size: 0.8rem;
-            margin-top: auto; border: 1px solid rgba(123, 97, 255, 0.2); width: fit-content;
-        }
-
-        /* Video Grid */
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-        .video-card { 
-            background: black; border-radius: var(--radius-lg); overflow: hidden; 
-            position: relative; aspect-ratio: 9/16; border: var(--glass-border); 
-        }
-        .video-card.landscape { aspect-ratio: 16/9; grid-column: span 2; }
-        .video-element { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .video-overlay {
-            position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; 
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); pointer-events: none;
-        }
-        .video-title { font-size: 1rem; font-weight: 700; color: white; }
-        .play-indicator {
-            position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); 
-            padding: 5px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 600; 
-            display: flex; align-items: center; gap: 5px; backdrop-filter: blur(5px);
-        }
-
-        @media (max-width: 768px) { 
-            .video-card.landscape { grid-column: span 1; aspect-ratio: 16/9; }
-            .grid-std { grid-template-columns: 1fr; }
-        }
-
-        /* --- 6. WALL OF WISHES (UI Enhanced) --- */
-        .wall-section {
-            padding: 60px 0; border-top: var(--glass-border); background: rgba(255,255,255,0.01);
-            margin-top: 40px;
-        }
-        .wall-layout { 
-            display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: start;
-        }
-
-        /* Form styling */
-        .wall-form-card {
-            background: var(--bg-secondary); padding: 24px; border-radius: var(--radius-lg);
-            border: var(--glass-border); position: sticky; top: 160px;
-        }
-        .form-label { display: block; color: var(--text-muted); margin-bottom: 8px; font-size: 0.85rem; font-weight: 600; }
-        .form-input {
-            width: 100%; background: var(--bg-main); border: 1px solid rgba(255,255,255,0.1);
-            color: white; padding: 12px; border-radius: var(--radius-md); font-family: inherit;
-            margin-bottom: 16px; transition: 0.3s;
-        }
-        .form-input:focus { outline: none; border-color: var(--primary); }
-        .btn-submit {
-            width: 100%; background: var(--accent-gradient); border: none; padding: 12px;
-            color: white; border-radius: var(--radius-md); font-weight: 700; cursor: pointer;
-            transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
-
-        /* Message List styling */
-        .wall-messages {
-            display: flex; flex-direction: column; gap: 16px;
-            max-height: 600px; overflow-y: auto; padding-right: 5px;
-        }
-        /* Mobile adjustment for Wall */
-        @media (max-width: 900px) { 
-            .wall-layout { grid-template-columns: 1fr; } 
-            .wall-form-card { position: relative; top: 0; margin-bottom: 20px; }
-            .wall-messages { max-height: 400px; } /* Batasi tinggi di HP agar tidak scroll jauh */
-        }
-
-        .msg-card {
-            background: var(--card-bg); padding: 16px; border-radius: 16px; 
-            border: var(--glass-border); animation: fadeIn 0.5s ease;
-        }
-        .msg-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
-        .msg-name { font-weight: 700; color: var(--primary); font-size: 0.9rem; }
-        .msg-date { font-size: 0.75rem; color: var(--text-muted); }
-        .msg-text { font-size: 0.9rem; color: #eee; line-height: 1.5; font-style: italic; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- 7. FOOTER & LIGHTBOX --- */
-        .lightbox {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95);
-            z-index: 9999; display: none; align-items: center; justify-content: center; padding: 10px;
-        }
-        .lightbox.active { display: flex; animation: fadeIn 0.3s; }
-        .lightbox-img { max-width: 100%; max-height: 80vh; border-radius: 8px; }
-        .lightbox-close { 
-            position: absolute; top: 20px; right: 20px; color: white; 
-            font-size: 2.5rem; cursor: pointer; padding: 10px;
-        }
-
-        footer { 
-            text-align: center; padding: 40px 0; color: var(--text-muted); 
-            font-size: 0.85rem; border-top: var(--glass-border); margin-top: 40px; 
+            .hero { padding-top: 80px; text-align: center; height: auto; padding-bottom: 60px; }
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-content { order: 2; } .hero-img-wrap { order: 1; }
+            .hero-actions { justify-content: center; width: 100%; } .btn { width: 100%; justify-content: center; }
+            .stats-grid { gap: 20px; } .stat-item { flex: 1 1 40%; }
         }
     </style>
 </head>
@@ -295,292 +169,165 @@
 
     <nav class="navbar-desktop">
         <div class="container nav-container">
-            <a href="index.html" class="logo"><i class="ri-arrow-left-line"></i> Hanif<span>.</span></a>
+            <a href="#" class="logo">Hanif<span>.</span></a>
             <div class="nav-links">
-                <a href="#market" class="nav-link">Market</a>
-                <a href="#web" class="nav-link">Web Dev</a>
-                <a href="#creative" class="nav-link">Creative</a>
-                <a href="#wall" class="nav-link" style="color: var(--secondary);">Guestbook</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="portfolio.html" class="nav-link">Work</a>
             </div>
-            <a href="index.html#contact" class="btn-contact">Contact Me</a>
+            <a href="portfolio.html" class="btn-hire">View Portfolio</a>
         </div>
     </nav>
 
     <nav class="mobile-nav">
-        <a href="index.html" class="mobile-nav-item">
-            <i class="ri-home-4-line"></i><span>Home</span>
+        <a href="#about" class="mobile-nav-item active">
+            <i class="ri-home-5-line"></i><span>Home</span>
         </a>
-        <a href="#" class="mobile-nav-item active">
-            <i class="ri-briefcase-4-fill"></i><span>Portfolio</span>
+        <a href="#skills" class="mobile-nav-item">
+            <i class="ri-flashlight-line"></i><span>Skills</span>
         </a>
-        <a href="#wall" class="mobile-nav-item">
-            <i class="ri-chat-smile-3-line"></i><span>Wall</span>
+        <a href="portfolio.html" class="mobile-nav-item">
+            <i class="ri-briefcase-4-line"></i><span>Work</span>
         </a>
     </nav>
 
-    <header class="page-header container">
-        <h1 class="page-title">Selected Works</h1>
-        <p class="page-desc">Sebuah kurasi proyek yang menggabungkan strategi data, teknologi web, dan kreativitas visual.</p>
-    </header>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
 
-    <div class="filter-bar">
-        <ul class="filter-list">
-            <li><a href="#market" class="filter-btn active">Market Analysis</a></li>
-            <li><a href="#web" class="filter-btn">Web Development</a></li>
-            <li><a href="#creative" class="filter-btn">Creative</a></li>
-            <li><a href="#activation" class="filter-btn">Activation</a></li>
-            <li><a href="#wall" class="filter-btn" style="border-color:var(--secondary); color:var(--secondary);">✨ Wall</a></li>
-        </ul>
-    </div>
+    <a href="https://wa.me/6281234567890" class="wa-float" target="_blank">
+        <i class="ri-whatsapp-line"></i>
+    </a>
 
-    <div class="container">
-        
-        <section id="market" class="segment">
-            <h2 class="segment-title">Market Analysis</h2>
-            <div class="grid-std">
-                <div class="port-card">
-                    <div class="card-img-wrap" onclick="openLightbox(this)">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Data" class="card-img" loading="lazy">
-                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
-                    </div>
-                    <div class="card-body">
-                        <span class="card-tag">F&B Industry</span>
-                        <h3 class="card-h">Coffee Shop Expansion</h3>
-                        <p class="card-p">Analisis kompetitor dan demografi lokasi untuk pembukaan 5 cabang baru.</p>
-                        <div class="stat-badge"><i class="ri-arrow-up-line"></i> 150% Growth</div>
-                    </div>
-                </div>
-                <div class="port-card">
-                    <div class="card-img-wrap" onclick="openLightbox(this)">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Data" class="card-img" loading="lazy">
-                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
-                    </div>
-                    <div class="card-body">
-                        <span class="card-tag">Tech Startup</span>
-                        <h3 class="card-h">User Acquisition Strategy</h3>
-                        <p class="card-p">Optimasi funnel marketing & A/B testing ads untuk menekan CPA.</p>
-                        <div class="stat-badge"><i class="ri-arrow-down-line"></i> 40% CPA</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="web" class="segment">
-            <h2 class="segment-title">Web Development</h2>
-            <div class="grid-std">
-                <div class="port-card">
-                    <div class="card-img-wrap" onclick="openLightbox(this)">
-                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=800&q=80" alt="Web" class="card-img" loading="lazy">
-                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
-                    </div>
-                    <div class="card-body">
-                        <span class="card-tag">E-Commerce</span>
-                        <h3 class="card-h">Fashion Brand Store</h3>
-                        <p class="card-p">Website toko online responsif dengan integrasi payment gateway.</p>
-                        <div class="stat-badge"><i class="ri-code-s-slash-line"></i> Midtrans Integrated</div>
-                    </div>
-                </div>
-                <div class="port-card">
-                    <div class="card-img-wrap" onclick="openLightbox(this)">
-                        <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf7d?auto=format&fit=crop&w=800&q=80" alt="Web" class="card-img" loading="lazy">
-                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
-                    </div>
-                    <div class="card-body">
-                        <span class="card-tag">Company Profile</span>
-                        <h3 class="card-h">Corporate Landing Page</h3>
-                        <p class="card-p">Website profil perusahaan modern dengan animasi scroll interaktif.</p>
-                        <div class="stat-badge"><i class="ri-speed-line"></i> SEO Optimized</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="creative" class="segment">
-            <h2 class="segment-title">Content Creative</h2>
-            <div class="video-grid">
-                <div class="video-card">
-                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto Play</div>
-                    <video class="video-element" muted loop playsinline poster="https://via.placeholder.com/300x533/111/333?text=Video+Loading">
-                        <source src="https://videos.pexels.com/video-files/3205908/3205908-uhd_2160_4096_25fps.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-overlay"><div class="video-title">Reels: Product Launch</div></div>
-                </div>
-                <div class="video-card">
-                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto Play</div>
-                    <video class="video-element" muted loop playsinline>
-                        <source src="https://videos.pexels.com/video-files/4434242/4434242-hd_1080_1920_24fps.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-overlay"><div class="video-title">Story: Event Highlight</div></div>
-                </div>
-                <div class="video-card landscape">
-                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto Play</div>
-                    <video class="video-element" muted loop playsinline>
-                        <source src="https://videos.pexels.com/video-files/3195394/3195394-uhd_3840_2160_25fps.mp4" type="video/mp4">
-                    </video>
-                    <div class="video-overlay"><div class="video-title">Cinematic Brand Profile</div></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="activation" class="segment">
-            <h2 class="segment-title">Activation & Event</h2>
-            <div class="grid-std">
-                <div class="port-card">
-                    <div class="card-img-wrap" onclick="openLightbox(this)">
-                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80" alt="Event" class="card-img" loading="lazy">
-                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
-                    </div>
-                    <div class="card-body">
-                        <span class="card-tag">Tech Conference</span>
-                        <h3 class="card-h">Tech Summit 2025</h3>
-                        <p class="card-p">Event Management untuk konferensi teknologi internasional.</p>
-                        <div class="stat-badge"><i class="ri-user-star-line"></i> 500+ Attendees</div>
-                    </div>
-                </div>
-                <div class="port-card">
-                    <div class="card-img-wrap" onclick="openLightbox(this)">
-                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80" alt="Event" class="card-img" loading="lazy">
-                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
-                    </div>
-                    <div class="card-body">
-                        <span class="card-tag">Brand Activation</span>
-                        <h3 class="card-h">Music Festival Booth</h3>
-                        <p class="card-p">Perancangan booth interaktif pada festival musik.</p>
-                        <div class="stat-badge"><i class="ri-thumb-up-line"></i> 10k+ Interactions</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </div>
-
-    <section id="wall" class="wall-section">
+    <section id="about" class="hero">
         <div class="container">
-            <div class="segment-title" style="border-color: var(--primary);">
-                Wall of Wishes
-                <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 400; margin-left: 10px;">Leave a message!</span>
-            </div>
-            
-            <div class="wall-layout">
-                <div class="wall-form-area">
-                    <div class="wall-form-card">
-                        <h3 style="margin-bottom: 20px;">Kirim Pesan ✨</h3>
-                        <form id="wishForm">
-                            <div style="margin-bottom: 15px;">
-                                <label class="form-label">Nama</label>
-                                <input type="text" id="inputName" class="form-input" placeholder="Nama Kamu" required>
-                            </div>
-                            <div style="margin-bottom: 15px;">
-                                <label class="form-label">Pesan / Harapan</label>
-                                <textarea id="inputMsg" class="form-input" rows="3" placeholder="Tulis pesan positif..." required></textarea>
-                            </div>
-                            <button type="submit" class="btn-submit">
-                                Kirim <i class="ri-send-plane-fill"></i>
-                            </button>
-                        </form>
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="section-tag">Available for Work</span>
+                    <h1>I'm <span class="gradient-text">Hanif Riza</span><br>
+                        <span class="type-text"></span><span class="type-cursor"></span>
+                    </h1>
+                    <p>
+                        Seorang profesional yang menggabungkan <strong>Data Analysis</strong>, <strong>Web Development</strong>, dan <strong>Creative Strategy</strong> untuk menciptakan dampak digital yang nyata.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="portfolio.html" class="btn btn-primary">Lihat Karya Saya <i class="ri-arrow-right-line"></i></a>
+                        <a href="#" class="btn btn-outline" onclick="alert('Fitur download CV akan segera tersedia!')"><i class="ri-download-cloud-2-line"></i> Download CV</a>
                     </div>
                 </div>
-
-                <div class="wall-messages" id="messagesContainer">
-                    </div>
+                <div class="hero-img-wrap">
+                    <img src="hanif formal png.jpg" alt="Muhammad Hanif Riza Mubarak" class="hero-img">
+                </div>
             </div>
         </div>
     </section>
 
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close">&times;</span>
-        <img src="" alt="Preview" class="lightbox-img" id="lightbox-img">
-    </div>
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item"><div class="stat-num gradient-text" data-target="3">0</div><div class="stat-desc">Years Experience</div></div>
+                <div class="stat-item"><div class="stat-num gradient-text" data-target="15">0</div><div class="stat-desc">Projects Done</div></div>
+                <div class="stat-item"><div class="stat-num gradient-text" data-target="10">0</div><div class="stat-desc">Happy Clients</div></div>
+                <div class="stat-item"><div class="stat-num gradient-text" data-target="5">0</div><div class="stat-desc">Awards Won</div></div>
+            </div>
+        </div>
+    </section>
 
-    <footer>
+    <section id="skills" style="padding: 80px 0;">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">My Expertise</span><h2>Core Capabilities</h2></div>
+            <div class="skills-grid">
+                <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-name">Market Analysis</div><div class="skill-sub">Data-driven Strategy</div></div>
+                <div class="skill-card"><div class="skill-icon">💻</div><div class="skill-name">Web Development</div><div class="skill-sub">Modern & Responsive</div></div>
+                <div class="skill-card"><div class="skill-icon">🎨</div><div class="skill-name">Creative Design</div><div class="skill-sub">Visual Storytelling</div></div>
+                <div class="skill-card"><div class="skill-icon">🚀</div><div class="skill-name">Activation</div><div class="skill-sub">Event Management</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" style="padding: 80px 0; background: rgba(255,255,255,0.01);">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">My Journey</span><h2>Professional Experience</h2></div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div><span class="timeline-date">Sep 2025 - Present</span><h3 class="timeline-title">Internship at BRI</h3><p class="timeline-desc">Event Activation & Digital Marketing Support di Kantor Pusat BRI.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div><span class="timeline-date">2024 - 2025</span><h3 class="timeline-title">Career Development (IPB)</h3><p class="timeline-desc">Tenaga Kependidikan (Tendik) mengelola event Job Fair & Career Assessment.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div><span class="timeline-date">2023 - 2024</span><h3 class="timeline-title">National Filmmaking</h3><p class="timeline-desc">Memenangkan 3 Kejuaraan Nasional Videografi & Motion Graphic.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 80px 0;">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">Featured Work</span><h2>Selected Projects</h2></div>
+            <div class="portfolio-grid">
+                <a href="portfolio.html#market" class="port-card">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Market" class="port-img">
+                    <div class="port-body">
+                        <div class="port-cat">Strategy</div><h3 class="port-title">Market Analysis</h3><p class="port-desc">Analisa pertumbuhan pasar untuk ekspansi brand F&B.</p>
+                    </div>
+                </a>
+                <a href="portfolio.html#web" class="port-card">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=600&q=80" alt="Web" class="port-img">
+                    <div class="port-body">
+                        <div class="port-cat">Development</div><h3 class="port-title">E-Commerce Web</h3><p class="port-desc">Platform toko online modern dengan fitur lengkap.</p>
+                    </div>
+                </a>
+                <a href="portfolio.html#creative" class="port-card">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=80" alt="Creative" class="port-img">
+                    <div class="port-body">
+                        <div class="port-cat">Creative</div><h3 class="port-title">Brand Visuals</h3><p class="port-desc">Konten kreatif dan video editing untuk kampanye digital.</p>
+                    </div>
+                </a>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="portfolio.html" class="btn btn-outline" style="border-color: var(--secondary); color: var(--secondary);">Lihat Semua Portofolio</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px 0; color: var(--text-muted); font-size: 0.9rem;">
         &copy; 2026 Hanif Riza. All Rights Reserved.
     </footer>
 
     <script>
-        // 1. VIDEO AUTOPLAY
-        const videos = document.querySelectorAll('video');
-        const observerVideo = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.play().catch(()=>{});
-                else entry.target.pause();
-            });
-        }, { threshold: 0.5 });
-        videos.forEach(video => observerVideo.observe(video));
+        // Typing Effect
+        const textElement = document.querySelector('.type-text');
+        const words = ["Digital Marketer", "Web Developer", "Market Analyst"];
+        let wordIndex = 0, charIndex = 0, isDeleting = false;
+        function type() {
+            const currentWord = words[wordIndex];
+            if (isDeleting) { textElement.textContent = currentWord.substring(0, charIndex - 1); charIndex--; } 
+            else { textElement.textContent = currentWord.substring(0, charIndex + 1); charIndex++; }
 
-        // 2. ACTIVE LINK ON SCROLL
-        const sections = document.querySelectorAll('section');
-        const navLi = document.querySelectorAll('.filter-btn');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollY >= sectionTop - 250) current = section.getAttribute('id');
+            if (!isDeleting && charIndex === currentWord.length) { isDeleting = true; setTimeout(type, 2000); } 
+            else if (isDeleting && charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % words.length; setTimeout(type, 500); } 
+            else { setTimeout(type, isDeleting ? 100 : 150); }
+        }
+        document.addEventListener('DOMContentLoaded', type);
+
+        // Stats Counter
+        const counters = document.querySelectorAll('.stat-num');
+        const animateStats = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target'), count = +counter.innerText, inc = target / 200;
+                    if (count < target) { counter.innerText = Math.ceil(count + inc); setTimeout(updateCount, 50); } 
+                    else { counter.innerText = target + "+"; }
+                };
+                updateCount();
             });
-            navLi.forEach(a => {
-                a.classList.remove('active');
-                if (a.getAttribute('href').includes(current)) a.classList.add('active');
-            });
+        };
+        const statsSection = document.querySelector('.stats-section');
+        const observerStats = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) { animateStats(); observerStats.disconnect(); }
         });
-
-        // 3. LIGHTBOX
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        function openLightbox(element) {
-            const img = element.querySelector('img');
-            lightboxImg.src = img.src;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // 4. WALL OF WISHES
-        const wishForm = document.getElementById('wishForm');
-        const messagesContainer = document.getElementById('messagesContainer');
-        const dummyData = [
-            { name: "Siti HRD", msg: "Portofolionya sangat rapi dan detail, Hanif!", date: "Just now" },
-            { name: "Manager", msg: "Suka dengan bagian Market Analysis-nya.", date: "1 hour ago" },
-            { name: "Visitor", msg: "Semoga sukses terus karirnya kak!", date: "2 hours ago" }
-        ];
-
-        function loadMessages() {
-            const storedMessages = JSON.parse(localStorage.getItem('hanif_msgs')) || dummyData;
-            messagesContainer.innerHTML = '';
-            storedMessages.forEach(data => createMessageCard(data.name, data.msg, data.date));
-        }
-
-        function createMessageCard(name, msg, date) {
-            const card = document.createElement('div');
-            card.className = 'msg-card';
-            card.innerHTML = `
-                <div class="msg-header">
-                    <span class="msg-name">${name}</span>
-                    <span class="msg-date">${date}</span>
-                </div>
-                <div class="msg-text">"${msg}"</div>
-            `;
-            messagesContainer.prepend(card);
-        }
-
-        wishForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('inputName').value;
-            const msg = document.getElementById('inputMsg').value;
-            const date = "Baru saja";
-            
-            createMessageCard(name, msg, date);
-            
-            const newMsgObj = { name, msg, date };
-            const currentData = JSON.parse(localStorage.getItem('hanif_msgs')) || dummyData;
-            currentData.push(newMsgObj);
-            localStorage.setItem('hanif_msgs', JSON.stringify(currentData));
-            
-            wishForm.reset();
-        });
-
-        loadMessages();
+        if(statsSection) observerStats.observe(statsSection);
     </script>
 </body>
 </html>
