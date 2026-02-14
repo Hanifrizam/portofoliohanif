@@ -119,7 +119,7 @@
         /* --- HEADER & FILTER --- */
         .page-header { padding-top: 120px; padding-bottom: 40px; text-align: center; background: radial-gradient(circle at top center, rgba(123, 97, 255, 0.15) 0%, transparent 60%); }
         .page-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 12px; line-height: 1.1; }
-        .page-desc { color: var(--text-muted); max-width: 500px; margin: 0 auto; font-size: 1rem; padding: 0 20px; }
+        .page-desc { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1rem; padding: 0 20px; }
 
         .filter-bar { position: sticky; top: 73px; z-index: 900; background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(15px); padding: 12px 0; border-bottom: var(--glass-border); border-top: var(--glass-border); margin-bottom: 40px; overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none; }
         .filter-bar::-webkit-scrollbar { display: none; }
@@ -132,7 +132,7 @@
         /* --- PORTFOLIO CARDS --- */
         .segment { padding: 20px 0; margin-bottom: 40px; }
         .segment-title { font-size: 1.8rem; margin-bottom: 30px; display: flex; align-items: center; gap: 12px; color: white; border-left: 4px solid var(--secondary); padding-left: 15px; }
-        .grid-std { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .grid-std { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
         .port-card { background: var(--card-bg); border-radius: var(--radius-lg); overflow: hidden; border: var(--glass-border); transition: 0.4s; position: relative; display: flex; flex-direction: column; height: 100%; }
         .port-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .card-img-wrap { width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; cursor: pointer; }
@@ -146,16 +146,37 @@
         .card-h { font-size: 1.25rem; margin-bottom: 10px; font-weight: 700; line-height: 1.3; }
         .card-p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
         .stat-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(123, 97, 255, 0.1); color: var(--primary); padding: 6px 12px; border-radius: 8px; font-weight: 600; font-size: 0.8rem; margin-top: auto; border: 1px solid rgba(123, 97, 255, 0.2); width: fit-content; }
+        
+        .btn-link {
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 15px; padding: 10px 20px;
+            background: transparent; color: white; border-radius: 50px;
+            text-decoration: none; font-size: 0.85rem; font-weight: 600;
+            transition: all 0.3s; border: 1px solid var(--secondary); width: fit-content;
+        }
+        .btn-link:hover {
+            background: var(--secondary); color: black; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 240, 255, 0.3);
+        }
 
-        /* --- VIDEOS --- */
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-        .video-card { background: black; border-radius: var(--radius-lg); overflow: hidden; position: relative; aspect-ratio: 9/16; border: var(--glass-border); }
-        .video-card.landscape { aspect-ratio: 16/9; grid-column: span 2; }
+        /* --- VIDEOS (4 VERTICAL, 4 HORIZONTAL) --- */
+        .video-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .video-card { background: black; border-radius: var(--radius-lg); overflow: hidden; position: relative; border: var(--glass-border); display: flex; flex-direction: column;}
+        .video-card.vertical { grid-column: span 1; aspect-ratio: 9/16; }
+        .video-card.horizontal { grid-column: span 2; aspect-ratio: 16/9; }
         .video-element { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .video-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); pointer-events: none; }
-        .video-title { font-size: 1rem; font-weight: 700; color: white; }
-        .play-indicator { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 600; display: flex; align-items: center; gap: 5px; backdrop-filter: blur(5px); }
-        @media (max-width: 768px) { .video-card.landscape { grid-column: span 1; aspect-ratio: 16/9; } .grid-std { grid-template-columns: 1fr; } }
+        .video-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 30px 20px 20px; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); pointer-events: none; }
+        .video-title { font-size: 1rem; font-weight: 700; color: white; line-height: 1.3;}
+        .video-subtitle { font-size: 0.75rem; color: var(--secondary); font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px;}
+        .play-indicator { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.6); padding: 5px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 600; display: flex; align-items: center; gap: 5px; backdrop-filter: blur(5px); z-index: 10; border: 1px solid rgba(255,255,255,0.1);}
+        
+        @media (max-width: 1024px) { 
+            .video-grid { grid-template-columns: repeat(2, 1fr); } 
+            .video-card.horizontal { grid-column: span 2; }
+        }
+        @media (max-width: 600px) { 
+            .video-grid { grid-template-columns: 1fr; } 
+            .video-card.vertical, .video-card.horizontal { grid-column: span 1; }
+            .video-card.horizontal { aspect-ratio: 16/9; }
+        }
 
         /* --- WALL OF WISHES --- */
         .wall-section { padding: 60px 0; border-top: var(--glass-border); background: rgba(255,255,255,0.01); margin-top: 40px; }
@@ -167,19 +188,47 @@
         .btn-submit { width: 100%; background: var(--accent-gradient); border: none; padding: 12px; color: white; border-radius: var(--radius-md); font-weight: 700; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(123, 97, 255, 0.4); }
         .wall-messages { display: flex; flex-direction: column; gap: 16px; max-height: 600px; overflow-y: auto; padding-right: 5px; }
-        @media (max-width: 900px) { .wall-layout { grid-template-columns: 1fr; } .wall-form-card { position: relative; top: 0; margin-bottom: 20px; } .wall-messages { max-height: 400px; } }
-        .msg-card { background: var(--card-bg); padding: 16px; border-radius: 16px; border: var(--glass-border); animation: fadeIn 0.5s ease; }
+        
+        .msg-card { background: var(--card-bg); padding: 16px; border-radius: 16px; border: var(--glass-border); animation: fadeIn 0.5s ease; position: relative; overflow: hidden;}
+        .msg-card::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: var(--secondary); }
         .msg-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
-        .msg-name { font-weight: 700; color: var(--primary); font-size: 0.9rem; }
+        .msg-name { font-weight: 700; color: white; font-size: 0.95rem; }
         .msg-date { font-size: 0.75rem; color: var(--text-muted); }
-        .msg-text { font-size: 0.9rem; color: #eee; line-height: 1.5; font-style: italic; }
+        .msg-text { font-size: 0.9rem; color: #ddd; line-height: 1.5; font-style: italic; }
+        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 900px) { .wall-layout { grid-template-columns: 1fr; } .wall-form-card { position: relative; top: 0; margin-bottom: 20px; } .wall-messages { max-height: 400px; } }
+
+        /* --- WARP SPEED EFFECT OVERLAY --- */
+        .warp-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 100000; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.5s ease; overflow: hidden;
+        }
+        .warp-overlay.active { opacity: 1; visibility: visible; }
+        .warp-text-container { z-index: 10; text-align: center; transform: scale(0.5); opacity: 0; transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .warp-overlay.active .warp-text-container { transform: scale(1); opacity: 1; transition-delay: 0.3s; }
+        .warp-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 5vw, 4rem); font-weight: 700; color: #fff; text-shadow: 0 0 20px var(--primary), 0 0 40px var(--secondary); margin-bottom: 10px;}
+        .warp-subtitle { font-size: 1.2rem; color: var(--secondary); font-weight: 500;}
+        
+        .warp-starfield { position: absolute; top: 50%; left: 50%; width: 0; height: 0; perspective: 600px; transform-style: preserve-3d; }
+        .warp-line {
+            position: absolute; top: 0; left: 0; width: 2px; height: 150px;
+            background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(0,240,255,0));
+            transform-origin: top center;
+            animation: warpAnim 1s linear infinite;
+        }
+        @keyframes warpAnim {
+            0% { transform: rotate(var(--deg)) translateY(20px) scaleY(0.5); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: rotate(var(--deg)) translateY(1500px) scaleY(3); opacity: 0; }
+        }
 
         /* --- LIGHTBOX --- */
-        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 10px; }
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 99999; display: none; align-items: center; justify-content: center; padding: 10px; }
         .lightbox.active { display: flex; animation: fadeIn 0.3s; }
         .lightbox-img { max-width: 100%; max-height: 80vh; border-radius: 8px; }
-        .lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 2.5rem; cursor: pointer; padding: 10px; }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 2.5rem; cursor: pointer; padding: 10px; z-index: 100;}
 
         footer { text-align: center; padding: 40px 0; color: var(--text-muted); font-size: 0.85rem; border-top: var(--glass-border); margin-top: 40px; }
     </style>
@@ -190,13 +239,22 @@
         <div class="spinner"></div>
     </div>
 
+    <div class="warp-overlay" id="warpOverlay">
+        <div class="warp-starfield" id="warpStarfield"></div>
+        <div class="warp-text-container">
+            <div class="warp-title">WOOSH! 🚀</div>
+            <div class="warp-subtitle">Terima kasih atas pesannya yang luar biasa!</div>
+        </div>
+    </div>
+
     <nav class="navbar-desktop">
         <div class="container nav-container">
             <a href="index.html" class="logo transition-link"><i class="ri-arrow-left-line"></i> Hanif<span>.</span></a>
             <div class="nav-links">
-                <a href="#market" class="nav-link">Market</a>
+                <a href="#market" class="nav-link">Market Analysis</a>
                 <a href="#web" class="nav-link">Web Dev</a>
                 <a href="#creative" class="nav-link">Creative</a>
+                <a href="#activation" class="nav-link">Activation</a>
                 <a href="#wall" class="nav-link" style="color: var(--secondary);">Guestbook</a>
             </div>
             <a href="index.html#contact" class="btn-contact transition-link">Contact Me</a>
@@ -218,15 +276,15 @@
 
     <header class="page-header container">
         <h1 class="page-title">Selected Works</h1>
-        <p class="page-desc">Sebuah kurasi proyek yang menggabungkan strategi data, teknologi web, dan kreativitas visual.</p>
+        <p class="page-desc">Sebuah kurasi proyek yang menggabungkan strategi data, teknologi web, dan kreativitas visual dari perjalanan karir saya.</p>
     </header>
 
     <div class="filter-bar">
         <ul class="filter-list">
             <li><a href="#market" class="filter-btn active">Market Analysis</a></li>
             <li><a href="#web" class="filter-btn">Web Development</a></li>
-            <li><a href="#creative" class="filter-btn">Creative</a></li>
-            <li><a href="#activation" class="filter-btn">Activation</a></li>
+            <li><a href="#creative" class="filter-btn">Content Creative</a></li>
+            <li><a href="#activation" class="filter-btn">Event Activation</a></li>
             <li><a href="#wall" class="filter-btn" style="border-color:var(--secondary); color:var(--secondary);">✨ Wall</a></li>
         </ul>
     </div>
@@ -238,26 +296,26 @@
             <div class="grid-std">
                 <div class="port-card">
                     <div class="card-img-wrap" onclick="openLightbox(this)">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Data" class="card-img" loading="lazy">
+                        <img src="bukti EXION.jpg" alt="Data Analysis Exion Care" class="card-img" loading="lazy">
                         <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
                     </div>
                     <div class="card-body">
-                        <span class="card-tag">F&B Industry</span>
-                        <h3 class="card-h">Coffee Shop Expansion</h3>
-                        <p class="card-p">Analisis kompetitor dan demografi lokasi untuk pembukaan 5 cabang baru.</p>
-                        <div class="stat-badge"><i class="ri-arrow-up-line"></i> 150% Growth</div>
+                        <span class="card-tag">Brand Marketing Intern</span>
+                        <h3 class="card-h">Exion Care Indonesia</h3>
+                        <p class="card-p">Mengevaluasi 20+ potensi kemitraan brand dan berhasil memfilter 5 brand strategis menggunakan 4P Marketing Mix dan framework AIDA.</p>
+                        <div class="stat-badge"><i class="ri-arrow-up-line"></i> B2B Collaboration</div>
                     </div>
                 </div>
                 <div class="port-card">
                     <div class="card-img-wrap" onclick="openLightbox(this)">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Data" class="card-img" loading="lazy">
+                        <img src="bukti roves.png" alt="Data Roves Global" class="card-img" loading="lazy">
                         <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
                     </div>
                     <div class="card-body">
-                        <span class="card-tag">Tech Startup</span>
-                        <h3 class="card-h">User Acquisition Strategy</h3>
-                        <p class="card-p">Optimasi funnel marketing & A/B testing ads untuk menekan CPA.</p>
-                        <div class="stat-badge"><i class="ri-arrow-down-line"></i> 40% CPA</div>
+                        <span class="card-tag">Marketing Intern</span>
+                        <h3 class="card-h">PT Roves Global Food</h3>
+                        <p class="card-p">Kampanye pemasaran digital untuk produk Rovestick yang berfokus pada visibilitas brand storytelling dengan misi sosial lingkungan.</p>
+                        <div class="stat-badge"><i class="ri-line-chart-line"></i> High Engagement</div>
                     </div>
                 </div>
             </div>
@@ -268,55 +326,142 @@
             <div class="grid-std">
                 <div class="port-card">
                     <div class="card-img-wrap" onclick="openLightbox(this)">
-                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&w=800&q=80" alt="Web" class="card-img" loading="lazy">
+                        <img src="website ylosss.png" alt="YLOS Web" class="card-img" loading="lazy">
                         <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
                     </div>
                     <div class="card-body">
-                        <span class="card-tag">E-Commerce</span>
-                        <h3 class="card-h">Fashion Brand Store</h3>
-                        <p class="card-p">Website toko online responsif dengan integrasi payment gateway.</p>
-                        <div class="stat-badge"><i class="ri-code-s-slash-line"></i> Midtrans Integrated</div>
+                        <span class="card-tag">Founder & Web Dev</span>
+                        <h3 class="card-h">YLOS (Youth Leader Organization Summit)</h3>
+                        <p class="card-p">Mengembangkan portal resmi untuk program kepemimpinan pemuda yang memfasilitasi informasi study tour internasional ke Singapura dan Malaysia.</p>
+                        <div class="stat-badge" style="margin-bottom: 10px;"><i class="ri-global-line"></i> International Scope</div>
+                        <a href="https://ylos.site/" target="_blank" class="btn-link">Kunjungi Website <i class="ri-external-link-line"></i></a>
                     </div>
                 </div>
                 <div class="port-card">
                     <div class="card-img-wrap" onclick="openLightbox(this)">
-                        <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf7d?auto=format&fit=crop&w=800&q=80" alt="Web" class="card-img" loading="lazy">
+                        <img src="website kadongdong.png" alt="Desa Kadongdong Web" class="card-img" loading="lazy">
                         <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
                     </div>
                     <div class="card-body">
-                        <span class="card-tag">Company Profile</span>
-                        <h3 class="card-h">Corporate Landing Page</h3>
-                        <p class="card-p">Website profil perusahaan modern dengan animasi scroll interaktif.</p>
-                        <div class="stat-badge"><i class="ri-speed-line"></i> SEO Optimized</div>
+                        <span class="card-tag">Digitalization Project</span>
+                        <h3 class="card-h">Desa Kadongdong Portal</h3>
+                        <p class="card-p">Membangun platform informasi dan profil desa terpadu untuk memudahkan akses informasi masyarakat serta mengangkat potensi lokal Desa Kadongdong.</p>
+                        <div class="stat-badge" style="margin-bottom: 10px;"><i class="ri-community-line"></i> Community Project</div>
+                        <a href="https://desakadongdong.id/" target="_blank" class="btn-link">Kunjungi Website <i class="ri-external-link-line"></i></a>
+                    </div>
+                </div>
+                <div class="port-card">
+                    <div class="card-img-wrap" onclick="openLightbox(this)">
+                        <img src="website classy.png" alt="Classy Studio Web" class="card-img" loading="lazy">
+                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag">Founder / CMO</span>
+                        <h3 class="card-h">Classy Studio Web</h3>
+                        <p class="card-p">Merancang Platform landing page informasi classy studio untuk mitra.</p>
+                        <div class="stat-badge" style="margin-bottom: 10px;"><i class="ri-money-dollar-circle-line"></i> Basic selling information</div>
+                        <a href="https://classystudioid.wordpress.com/" target="_blank" class="btn-link">Kunjungi Website <i class="ri-external-link-line"></i></a>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="creative" class="segment">
-            <h2 class="segment-title">Content Creative</h2>
+            <h2 class="segment-title">Content Creative <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 400; margin-left: 10px;">More at www.behance.net/muhammadhanif82</span></h2>
             <div class="video-grid">
-                <div class="video-card">
-                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto Play</div>
-                    <video class="video-element" muted loop playsinline poster="https://placehold.co/600x1067/111/FFF?text=Video+Loading">
-                        <source src="https://assets.mixkit.co/videos/preview/mixkit-working-on-a-new-project-3096-large.mp4" type="video/mp4">
+                
+                <div class="video-card vertical">
+                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto</div>
+                    <video class="video-element" muted loop playsinline poster="https://placehold.co/600x1067/111/FFF?text=Loading">
+                        <source src="vide cda cio.mp4" type="video/mp4">
                     </video>
-                    <div class="video-overlay"><div class="video-title">Reels: Product Launch</div></div>
+                    <div class="video-overlay">
+                        <div class="video-subtitle">Shorts / IG Reels</div>
+                        <div class="video-title">CDA IPB - Career In One</div>
+                    </div>
                 </div>
-                <div class="video-card">
-                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto Play</div>
-                    <video class="video-element" muted loop playsinline poster="https://placehold.co/600x1067/111/FFF?text=Video+Loading">
-                        <source src="https://assets.mixkit.co/videos/preview/mixkit-white-augmented-reality-sphere-2766-large.mp4" type="video/mp4">
+                
+                <div class="video-card vertical">
+                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto</div>
+                    <video class="video-element" muted loop playsinline poster="https://placehold.co/600x1067/111/FFF?text=Loading">
+                        <source src="video classy.mp4" type="video/mp4">
                     </video>
-                    <div class="video-overlay"><div class="video-title">Story: Event Highlight</div></div>
+                    <div class="video-overlay">
+                        <div class="video-subtitle">Social Media Strategy</div>
+                        <div class="video-title">Classy Studio Commercials</div>
+                    </div>
                 </div>
-                <div class="video-card landscape">
-                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto Play</div>
-                    <video class="video-element" muted loop playsinline poster="https://placehold.co/800x450/111/FFF?text=Video+Loading">
-                        <source src="https://assets.mixkit.co/videos/preview/mixkit-man-working-on-his-laptop-308-large.mp4" type="video/mp4">
+
+                <div class="video-card vertical">
+                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto</div>
+                    <video class="video-element" muted loop playsinline poster="https://placehold.co/600x1067/111/FFF?text=Loading">
+                        <source src="video roves.mp4" type="video/mp4">
                     </video>
-                    <div class="video-overlay"><div class="video-title">Cinematic Brand Profile</div></div>
+                    <div class="video-overlay">
+                        <div class="video-subtitle">Product Review Concept</div>
+                        <div class="video-title">PT Roves Global Food</div>
+                    </div>
                 </div>
+
+                <div class="video-card vertical">
+                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto</div>
+                    <video class="video-element" muted loop playsinline poster="https://placehold.co/600x1067/111/FFF?text=Loading">
+                        <source src="video comingsoon ijf.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay">
+                        <div class="video-subtitle">Coming Soon Teaser</div>
+                        <div class="video-title">IPB Job Fair by CDA IPB</div>
+                    </div>
+                </div>
+
+                <div class="video-card horizontal">
+                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto</div>
+                    <video class="video-element" muted loop playsinline poster="https://placehold.co/800x450/111/FFF?text=Loading">
+                        <source src="video comprof fapet.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay">
+                        <div class="video-subtitle">Director</div>
+                        <div class="video-title">Company Profile THT Dept Fapet</div>
+                    </div>
+                </div>
+
+                <div class="video-card horizontal">
+                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto</div>
+                    <video class="video-element" muted loop playsinline poster="https://placehold.co/800x450/111/FFF?text=Loading">
+                        <source src="AFMOV OF 2.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay">
+                        <div class="video-subtitle">Creative Direction</div>
+                        <div class="video-title">ORANGE FEM 2024 - Afmov & Animation Movie</div>
+                    </div>
+                </div>
+
+                <div class="video-card horizontal">
+                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto</div>
+                    <video class="video-element" muted loop playsinline poster="https://placehold.co/800x450/111/FFF?text=Loading">
+                        <source src="bumper event cda.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay">
+                        <div class="video-subtitle">Motion Graphic Campaign</div>
+                        <div class="video-title">IPB Job Fair 2024 - 2025 Opening Bumpers</div>
+                    </div>
+                </div>
+
+                <div class="video-card horizontal">
+                    <div class="play-indicator"><i class="ri-play-circle-fill"></i> Auto</div>
+                    <video class="video-element" muted loop playsinline poster="https://placehold.co/800x450/111/FFF?text=Loading">
+                        <source src="classy videoo.mp4" type="video/mp4">
+                    </video>
+                    <div class="video-overlay">
+                        <div class="video-subtitle">Filmmaking Competition</div>
+                        <div class="video-title">Classy Studio Team</div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="https://www.behance.net/muhammadhanif82" target="_blank" class="btn-contact">Lihat Portofolio Kreatif Lengkap <i class="ri-arrow-right-line"></i></a>
             </div>
         </section>
 
@@ -325,28 +470,82 @@
             <div class="grid-std">
                 <div class="port-card">
                     <div class="card-img-wrap" onclick="openLightbox(this)">
-                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80" alt="Event" class="card-img" loading="lazy">
+                        <img src="brimo activation.jpg" alt="BRI Event" class="card-img" loading="lazy">
                         <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
                     </div>
                     <div class="card-body">
-                        <span class="card-tag">Tech Conference</span>
-                        <h3 class="card-h">Tech Summit 2025</h3>
-                        <p class="card-p">Event Management untuk konferensi teknologi internasional.</p>
-                        <div class="stat-badge"><i class="ri-user-star-line"></i> 500+ Attendees</div>
+                        <span class="card-tag">Bank Rakyat Indonesia</span>
+                        <h3 class="card-h">BRImo Event Activation</h3>
+                        <p class="card-p">Supporting PIC untuk implementasi program booth yang berhasil meningkatkan sales volume dan Monthly Active Users (MAU) BRImo app.</p>
+                        <div class="stat-badge"><i class="ri-rocket-line"></i> Sales Volume & MAU Increase</div>
                     </div>
                 </div>
+                
                 <div class="port-card">
                     <div class="card-img-wrap" onclick="openLightbox(this)">
-                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80" alt="Event" class="card-img" loading="lazy">
+                        <img src="cover ijf.png" alt="Job Fair" class="card-img" loading="lazy">
                         <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
                     </div>
                     <div class="card-body">
-                        <span class="card-tag">Brand Activation</span>
-                        <h3 class="card-h">Music Festival Booth</h3>
-                        <p class="card-p">Perancangan booth interaktif pada festival musik.</p>
-                        <div class="stat-badge"><i class="ri-thumb-up-line"></i> 10k+ Interactions</div>
+                        <span class="card-tag">Creative Marketing Team</span>
+                        <h3 class="card-h">IPB JOB FAIR 2024 & 2025</h3>
+                        <p class="card-p">Berkontribusi penuh pada visual desain & sukses menarik total 4000+ peserta.</p>
+                        <div class="stat-badge"><i class="ri-user-star-line"></i> 4,000+ Attendees</div>
                     </div>
                 </div>
+
+                <div class="port-card">
+                    <div class="card-img-wrap" onclick="openLightbox(this)">
+                        <img src="foto operator.JPG" alt="CDA IPB" class="card-img" loading="lazy">
+                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag">Event Operator</span>
+                        <h3 class="card-h">CDA IPB</h3>
+                        <p class="card-p">Event Job Fair, mengoperasikan operator livestream dan set up costumisasi live youtube.</p>
+                        <div class="stat-badge"><i class="ri-live-line"></i> 4000+ Visitor Offline & Online</div>
+                    </div>
+                </div>
+
+                <div class="port-card">
+                    <div class="card-img-wrap" onclick="openLightbox(this)">
+                        <img src="cover of 2024.png" alt="Orange FEM" class="card-img" loading="lazy">
+                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag">Creative Field Coordinator</span>
+                        <h3 class="card-h">ORANGE FEM 2024</h3>
+                        <p class="card-p">Mega project untuk mahasiswa baru Fakultas Ekonomi dan Manajemen. Mensupervisi tim dan mencapai tingkat kepuasan tinggi melalui manajemen visual yang eyecatching.</p>
+                        <div class="stat-badge"><i class="ri-check-double-line"></i> 100% Satisfaction</div>
+                    </div>
+                </div>
+
+                <div class="port-card">
+                    <div class="card-img-wrap" onclick="openLightbox(this)">
+                        <img src="booth cda jejer depan.JPG" alt="Booth CDA" class="card-img" loading="lazy">
+                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag">Direct Promotion</span>
+                        <h3 class="card-h">CDA Goes to Faculty</h3>
+                        <p class="card-p">Melakukan aktivasi Booth CDA IPB di beberapa fakultas terpilih.</p>
+                        <div class="stat-badge"><i class="ri-shopping-cart-line"></i> New CDA Web Member</div>
+                    </div>
+                </div>
+
+                <div class="port-card">
+                    <div class="card-img-wrap" onclick="openLightbox(this)">
+                        <img src="pitching classy.jpeg" alt="Classy Studio" class="card-img" loading="lazy">
+                        <div class="card-overlay"><i class="ri-zoom-in-line zoom-icon"></i></div>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-tag">Pitching & Offering</span>
+                        <h3 class="card-h">Classy Studio</h3>
+                        <p class="card-p">Melakukan pitching dan offering ke beberapa pelaku bisnis untuk dapat bekerja sama secara Business to Business</p>
+                        <div class="stat-badge"><i class="ri-group-line"></i> Rp +18 million turnover</div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -390,7 +589,7 @@
     </div>
 
     <footer>
-        &copy; 2026 Hanif Riza. All Rights Reserved.
+        &copy; 2026 Muhammad Hanif Riza Mubarak. All Rights Reserved.
     </footer>
 
     <script>
@@ -405,20 +604,16 @@
         const transitionLinks = document.querySelectorAll('.transition-link');
         transitionLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                // Abaikan jika link adalah anchor di halaman yang sama
                 if(this.getAttribute('href').startsWith('#')) return; 
-                
                 e.preventDefault(); 
                 const target = this.getAttribute('href');
                 const loader = document.getElementById('loader');
                 loader.classList.remove('hidden');
-                setTimeout(() => {
-                    window.location.href = target;
-                }, 500); 
+                setTimeout(() => { window.location.href = target; }, 500); 
             });
         });
 
-        // --- 2. SCROLL ANIMATIONS (PC & MOBILE NAV, FILTER BTN) ---
+        // --- 2. SCROLL ANIMATIONS ---
         const desktopNav = document.querySelector('.navbar-desktop');
         const mobileNav = document.getElementById('mobileNav');
         const sections = document.querySelectorAll('section');
@@ -426,11 +621,9 @@
         let lastScrollY = window.scrollY;
 
         window.addEventListener('scroll', () => {
-            // Desktop Nav Shrink
             if (window.scrollY > 50) desktopNav.classList.add('scrolled');
             else desktopNav.classList.remove('scrolled');
 
-            // Mobile Nav Hide on Scroll
             if (window.scrollY > lastScrollY && window.scrollY > 150) {
                 mobileNav.classList.add('hide-on-scroll');
             } else {
@@ -438,7 +631,6 @@
             }
             lastScrollY = window.scrollY;
 
-            // Filter Button Active State
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
@@ -450,7 +642,7 @@
             });
         });
 
-        // --- 3. MOBILE NAV INDICATOR LOGIC ---
+        // --- 3. MOBILE NAV INDICATOR ---
         const mobileItems = document.querySelectorAll('.mobile-nav-item');
         const indicator = document.getElementById('navIndicator');
 
@@ -468,13 +660,12 @@
             });
         });
 
-        // Set indikator awal
         window.addEventListener('DOMContentLoaded', () => {
             const initialActive = document.querySelector('.mobile-nav-item.active');
             moveIndicator(initialActive);
         });
 
-        // --- 4. VIDEO AUTOPLAY (INTERSECTION OBSERVER) ---
+        // --- 4. VIDEO AUTOPLAY LOGIC ---
         const videos = document.querySelectorAll('video');
         const observerVideo = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -498,13 +689,16 @@
             document.body.style.overflow = 'auto';
         }
 
-        // --- 6. WALL OF WISHES (LOCAL STORAGE) ---
+        // --- 6. WALL OF WISHES (W/ WARP SPEED) ---
         const wishForm = document.getElementById('wishForm');
         const messagesContainer = document.getElementById('messagesContainer');
+        const warpOverlay = document.getElementById('warpOverlay');
+        const warpStarfield = document.getElementById('warpStarfield');
+
         const dummyData = [
-            { name: "Siti HRD", msg: "Portofolionya sangat rapi dan detail, Hanif!", date: "Just now" },
-            { name: "Manager", msg: "Suka dengan bagian Market Analysis-nya.", date: "1 hour ago" },
-            { name: "Visitor", msg: "Semoga sukses terus karirnya kak!", date: "2 hours ago" }
+            { name: "Tim IPB Job Fair", msg: "Visualisasi desain dan marketingnya luar biasa, Hanif!", date: "2 hours ago" },
+            { name: "Siti HRD", msg: "Portofolionya sangat rapi dan detail, pengalamannya juga relevan.", date: "4 hours ago" },
+            { name: "Visitor", msg: "Keren banget websitenya, animasinya mulus!", date: "1 day ago" }
         ];
 
         function loadMessages() {
@@ -526,20 +720,42 @@
             messagesContainer.prepend(card);
         }
 
+        // Trigger Warp Speed Generator
+        function generateWarpStars() {
+            warpStarfield.innerHTML = '';
+            for(let i=0; i<40; i++) {
+                let line = document.createElement('div');
+                line.className = 'warp-line';
+                let angle = Math.random() * 360;
+                line.style.setProperty('--deg', angle + 'deg');
+                line.style.animationDelay = (Math.random() * 0.5) + 's';
+                warpStarfield.appendChild(line);
+            }
+        }
+
         wishForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('inputName').value;
             const msg = document.getElementById('inputMsg').value;
             const date = "Baru saja";
             
-            createMessageCard(name, msg, date);
+            // Generate Stars and Show Warp Speed Overlay
+            generateWarpStars();
+            warpOverlay.classList.add('active');
             
-            const newMsgObj = { name, msg, date };
-            const currentData = JSON.parse(localStorage.getItem('hanif_msgs')) || dummyData;
-            currentData.push(newMsgObj);
-            localStorage.setItem('hanif_msgs', JSON.stringify(currentData));
-            
-            wishForm.reset();
+            // Close after 3.5 seconds
+            setTimeout(() => {
+                warpOverlay.classList.remove('active');
+                
+                // Submit Message to Wall (Visual update)
+                createMessageCard(name, msg, date);
+                const newMsgObj = { name, msg, date };
+                const currentData = JSON.parse(localStorage.getItem('hanif_msgs')) || dummyData;
+                currentData.push(newMsgObj);
+                localStorage.setItem('hanif_msgs', JSON.stringify(currentData));
+                
+                wishForm.reset();
+            }, 3500);
         });
 
         loadMessages();
